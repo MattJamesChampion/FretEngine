@@ -8,17 +8,17 @@ namespace FretEngine.Common.DataTypes
 {
     public enum AbstractMusicNote
     {
-        CNatural,
+        BSharpCNatural,
         CSharpDFlat,
         DNatural,
         DSharpEFlat,
-        ENatural,
-        FNatural,
+        ENaturalFFlat,
+        ESharpFNatural,
         FSharpGFlat,
         GNatural,
         GSharpAFlat,
         ANatural,
         ASharpBFlat,
-        BNatural
+        BNaturalCFlat
     }
 }
