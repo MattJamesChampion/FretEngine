@@ -45,6 +45,7 @@ namespace UnitTests_FretEngine.Common.Extensions
         [TestCase(AbstractMusicNote.BNaturalCFlat, 13, 2)]
         [TestCase(AbstractMusicNote.GSharpAFlat, -12, -1)]
         [TestCase(AbstractMusicNote.BSharpCNatural, 0, 0)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 17, 1)]
         public void Sharpened_WhenIncrementingWithOctaveShift_ShouldReturnCorrectOctaveShift(AbstractMusicNote initialAbstractMusicNote, int incrementQuantity, int expectedOctaveShift)
         {
             int returnedOctaveShift;
@@ -59,6 +60,7 @@ namespace UnitTests_FretEngine.Common.Extensions
         [TestCase(AbstractMusicNote.DNatural, 1, AbstractMusicNote.CSharpDFlat)]
         [TestCase(AbstractMusicNote.BSharpCNatural, 7, AbstractMusicNote.ESharpFNatural)]
         [TestCase(AbstractMusicNote.CSharpDFlat, 0, AbstractMusicNote.CSharpDFlat)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, 17, AbstractMusicNote.ASharpBFlat)]
         public void Flattened_WhenDecrementingWithoutOctaveShift_ShouldReturnCorrectAbstractMusicNote(AbstractMusicNote initialAbstractMusicNote, int decrementQuantity, AbstractMusicNote expectedAbstractMusicNote)
         {
             Assert.AreEqual(expectedAbstractMusicNote, initialAbstractMusicNote.Flattened(decrementQuantity));
@@ -71,6 +73,7 @@ namespace UnitTests_FretEngine.Common.Extensions
         [TestCase(AbstractMusicNote.ANatural, 7, AbstractMusicNote.DNatural)]
         [TestCase(AbstractMusicNote.DSharpEFlat, 20, AbstractMusicNote.GNatural)]
         [TestCase(AbstractMusicNote.DNatural, -(-(-(2))), AbstractMusicNote.ENaturalFFlat)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 12, AbstractMusicNote.GSharpAFlat)]
         public void Flattened_WhenDecrementingWithOctaveShift_ShouldReturnCorrectAbstractMusicNote(AbstractMusicNote initialAbstractMusicNote, int decrementQuantity, AbstractMusicNote expectedAbstractMusicNote)
         {
             int returnedOctaveShift;
@@ -83,6 +86,8 @@ namespace UnitTests_FretEngine.Common.Extensions
         [TestCase(AbstractMusicNote.BNaturalCFlat, 11, 0)]
         [TestCase(AbstractMusicNote.CSharpDFlat, 72, -6)]
         [TestCase(AbstractMusicNote.GNatural, 0, 0)]
+        [TestCase(AbstractMusicNote.ANatural, 48, -4)]
+        [TestCase(AbstractMusicNote.DNatural, -1000, 83)]
         public void Flattened_WhenDecrementing_ShouldReturnCorrectOctaveShift(AbstractMusicNote initialAbstractMusicNote, int decrementQuantity, int expectedOctaveShift)
         {
             int returnedOctaveShift;
