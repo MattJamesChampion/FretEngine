@@ -38,6 +38,32 @@ namespace UnitTests_FretEngine.MusicLogic
             });
         }
 
+        [TestCase(AbstractMusicNote.ESharpFNatural, -0)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 7)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, 4)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 0)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -2)]
+        [TestCase(AbstractMusicNote.ANatural, 12)]
+        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndValidOctave_ShouldContainCorrectValues(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            Assert.IsTrue((testMusicNote.Value == testAbstractMusicNote) && (testMusicNote.Octave == testOctave));
+        }
+
+        [TestCase(AbstractMusicNote.ESharpFNatural)]
+        [TestCase(AbstractMusicNote.DNatural)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat)]
+        [TestCase(AbstractMusicNote.ANatural)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat)]
+        [TestCase(AbstractMusicNote.GSharpAFlat)]
+        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndNoOctave_ShouldContainCorrectValues(AbstractMusicNote testAbstractMusicNote)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote);
+
+            Assert.IsTrue(testMusicNote.Value == testAbstractMusicNote);
+        }
+
         [TestCase(AbstractMusicNote.DNatural, 4)]
         [TestCase(AbstractMusicNote.GNatural, 1)]
         [TestCase(AbstractMusicNote.FSharpGFlat, 20)]
