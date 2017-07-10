@@ -9,8 +9,8 @@ namespace FretEngine.MusicLogic
 {
     public class MusicNote
     {
-        public AbstractMusicNote Value;
-        public int Octave;
+        public readonly AbstractMusicNote Value;
+        public readonly int Octave;
 
         public MusicNote(AbstractMusicNote value, int octave = 4)
         {
