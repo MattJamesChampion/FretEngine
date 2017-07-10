@@ -74,5 +74,23 @@ namespace FretEngine.MusicLogic
         {
             return !(firstMusicNote == secondMusicNote);
         }
+
+        public MusicNote Sharpened(int incrementQuantity)
+        {
+            int returnedOctaveShift;
+
+            AbstractMusicNote sharpenedAbstractMusicNote = Value.Sharpened(incrementQuantity, out returnedOctaveShift);
+
+            return new MusicNote(sharpenedAbstractMusicNote, Octave + returnedOctaveShift);
+        }
+
+        public MusicNote Flattened(int decrementQuantity)
+        {
+            int returnedOctaveShift;
+
+            AbstractMusicNote flattenedAbstractMusicNote = Value.Flattened(decrementQuantity, out returnedOctaveShift);
+
+            return new MusicNote(flattenedAbstractMusicNote, Octave + returnedOctaveShift);
+        }
     }
 }

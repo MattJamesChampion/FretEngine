@@ -184,5 +184,41 @@ namespace UnitTests_FretEngine.MusicLogic
 
             Assert.IsTrue(firstMusicNote != secondMusicNote);
         }
+
+        [TestCase(AbstractMusicNote.ANatural, 4, 1, AbstractMusicNote.ASharpBFlat, 4)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 14, 0, AbstractMusicNote.FSharpGFlat, 14)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, -2, 14, AbstractMusicNote.ASharpBFlat, -1)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 3, -7, AbstractMusicNote.ANatural, 2)]
+        [TestCase(AbstractMusicNote.DNatural, 4, -0, AbstractMusicNote.DNatural, 4)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, 30, -84, AbstractMusicNote.CSharpDFlat, 23)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, -20, 12, AbstractMusicNote.BNaturalCFlat, -19)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, 0, 5, AbstractMusicNote.ASharpBFlat, 0)]
+        public void Sharpened_WhenGivenValidIncrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int startOctave, int incrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int expectedOctave)
+        {
+            var initialMusicNote = new MusicNote(startNote, startOctave);
+            var sharpenedMusicNote = initialMusicNote.Sharpened(incrementQuantity);
+
+            var expectedMusicNote = new MusicNote(expectedAbstractMusicNote, expectedOctave);
+
+            Assert.AreEqual(expectedMusicNote, sharpenedMusicNote);
+        }
+
+        [TestCase(AbstractMusicNote.FSharpGFlat, 4, -18, AbstractMusicNote.BSharpCNatural, 6)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 20, 10, AbstractMusicNote.FSharpGFlat, 19)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, -7, 5, AbstractMusicNote.ASharpBFlat, -8)]
+        [TestCase(AbstractMusicNote.GNatural, 100, -40, AbstractMusicNote.BNaturalCFlat, 103)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 5, 2, AbstractMusicNote.ANatural, 5)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 12, 7, AbstractMusicNote.CSharpDFlat, 12)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 0, 14, AbstractMusicNote.ASharpBFlat, -2)]
+        [TestCase(AbstractMusicNote.ANatural, 3, 10, AbstractMusicNote.BNaturalCFlat, 2)]
+        public void Flattened_WhenGivenValidDecrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int startOctave, int decrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int expectedOctave)
+        {
+            var initialMusicNote = new MusicNote(startNote, startOctave);
+            var flattenedMusicNote = initialMusicNote.Flattened(decrementQuantity);
+
+            var expectedMusicNote = new MusicNote(expectedAbstractMusicNote, expectedOctave);
+
+            Assert.AreEqual(expectedMusicNote, flattenedMusicNote);
+        }
     }
 }
