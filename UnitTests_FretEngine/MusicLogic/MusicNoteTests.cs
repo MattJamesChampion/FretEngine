@@ -18,10 +18,10 @@ namespace UnitTests_FretEngine.MusicLogic
         [TestCase(AbstractMusicNote.FSharpGFlat, 6)]
         [TestCase(AbstractMusicNote.GSharpAFlat, 8)]
         [TestCase(AbstractMusicNote.ASharpBFlat, 10)]
-        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndValidOctave_ShouldNotThrowException(AbstractMusicNote value, int octave)
+        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndValidOctave_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int testOctave)
         {
             Assert.DoesNotThrow(() => {
-                new MusicNote(value, octave);
+                new MusicNote(testAbstractMusicNote, testOctave);
             });
         }
 
@@ -31,10 +31,10 @@ namespace UnitTests_FretEngine.MusicLogic
 	    [TestCase(AbstractMusicNote.GNatural)]
 	    [TestCase(AbstractMusicNote.ANatural)]
 	    [TestCase(AbstractMusicNote.BNaturalCFlat)]
-        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndNoOctave_ShouldNotThrowException(AbstractMusicNote value)
+        public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndNoOctave_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote)
         {
             Assert.DoesNotThrow(() => {
-                new MusicNote(value);
+                new MusicNote(testAbstractMusicNote);
             });
         }
 
