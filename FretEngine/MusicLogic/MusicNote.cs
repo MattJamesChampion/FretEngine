@@ -22,5 +22,57 @@ namespace FretEngine.MusicLogic
         {
             return string.Format("{0} {1}", Value, Octave);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            MusicNote targetMusicNote = obj as MusicNote;
+
+            if ((object)targetMusicNote == null)
+            {
+                return false;
+            }
+
+            return ((Value == targetMusicNote.Value) && (Octave == targetMusicNote.Octave));
+        }
+
+        public bool Equals(MusicNote targetMusicNote)
+        {
+            if ((object)targetMusicNote == null)
+            {
+                return false;
+            }
+
+            return ((Value == targetMusicNote.Value) && (Octave == targetMusicNote.Octave));
+        }
+
+        public override int GetHashCode()
+        {
+            return new { Value, Octave }.GetHashCode();
+        }
+
+        public static bool operator == (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            if (ReferenceEquals(firstMusicNote, secondMusicNote))
+            {
+                return true;
+            }
+
+            if (((object)firstMusicNote == null) || ((object)secondMusicNote == null))
+            {
+                return false;
+            }
+
+            return firstMusicNote.Equals(secondMusicNote);
+        }
+
+        public static bool operator != (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            return !(firstMusicNote == secondMusicNote);
+        }
     }
 }
