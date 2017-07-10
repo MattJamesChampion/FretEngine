@@ -24,13 +24,13 @@ namespace FretEngine.Common.DataTypes
 
     public static class AbstractMusicNoteExtensions
     {
-        private static AbstractMusicNote ModifyAbstractMusicNote(AbstractMusicNote initialAbstractMusicNote, int modifyQuantity, out int octaveShift)
+        private static AbstractMusicNote GetShiftedAbstractMusicNote(AbstractMusicNote initialAbstractMusicNote, int shiftQuantity, out int octaveShift)
         {
             var numberOfElements = Enum.GetNames(typeof(AbstractMusicNote)).Length;
             var abstractMusicNoteValue = (int)initialAbstractMusicNote;
 
-            var modifiedAbstractMusicNoteValue = ((abstractMusicNoteValue + modifyQuantity) % numberOfElements);
-            var totalOctaveShifts = (abstractMusicNoteValue + modifyQuantity) / numberOfElements;
+            var modifiedAbstractMusicNoteValue = ((abstractMusicNoteValue + shiftQuantity) % numberOfElements);
+            var totalOctaveShifts = (abstractMusicNoteValue + shiftQuantity) / numberOfElements;
 
             if (modifiedAbstractMusicNoteValue < 0)
             {
@@ -46,7 +46,7 @@ namespace FretEngine.Common.DataTypes
         {
             int returnedOctaveShift;
 
-            var sharpenedAbstractMusicNote = ModifyAbstractMusicNote(initialAbstractMusicNote, incrementQuantity, out returnedOctaveShift);
+            var sharpenedAbstractMusicNote = GetShiftedAbstractMusicNote(initialAbstractMusicNote, incrementQuantity, out returnedOctaveShift);
             octaveShift = returnedOctaveShift;
 
             return sharpenedAbstractMusicNote;
@@ -65,7 +65,7 @@ namespace FretEngine.Common.DataTypes
 
             decrementQuantity = -decrementQuantity;
 
-            var flattenedAbstractMusicNote = ModifyAbstractMusicNote(initialAbstractMusicNote, decrementQuantity, out returnedOctaveShift);
+            var flattenedAbstractMusicNote = GetShiftedAbstractMusicNote(initialAbstractMusicNote, decrementQuantity, out returnedOctaveShift);
             octaveShift = returnedOctaveShift;
 
             return flattenedAbstractMusicNote;
