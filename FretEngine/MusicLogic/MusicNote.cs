@@ -17,5 +17,10 @@ namespace FretEngine.MusicLogic
             Value = value;
             Octave = octave;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", Value, Octave);
+        }
     }
 }

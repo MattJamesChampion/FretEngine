@@ -37,5 +37,21 @@ namespace UnitTests_FretEngine.MusicLogic
                 new MusicNote(value);
             });
         }
+
+        [TestCase(AbstractMusicNote.DNatural, 4)]
+        [TestCase(AbstractMusicNote.GNatural, 1)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 20)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -7)]
+        [TestCase(AbstractMusicNote.ANatural, 0)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -0)]
+        public void ToString_WhenCalledOnAValidMusicNote_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            Assert.DoesNotThrow(() =>
+            {
+                testMusicNote.ToString();
+            });
+        }
     }
 }
