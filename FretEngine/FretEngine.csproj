@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Common\DataTypes\AbstractMusicNote.cs" />
     <Compile Include="MusicLogic\MusicNote.cs" />
+    <Compile Include="MusicLogic\MusicString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
