@@ -37,7 +37,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return ((Value == targetMusicNote.Value) && (Octave == targetMusicNote.Octave));
+            return Equals(targetMusicNote);
         }
 
         public bool Equals(MusicNote targetMusicNote)
