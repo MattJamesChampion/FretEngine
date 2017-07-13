@@ -118,6 +118,45 @@ namespace FretEngine.MusicLogic
             }
         }
 
+
+        public static bool operator > (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            if ((firstMusicNote == null) || (secondMusicNote == null))
+            {
+                return false;
+            }
+
+            var result = firstMusicNote.CompareTo(secondMusicNote);
+
+            if (result == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator < (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            if ((firstMusicNote == null) || (secondMusicNote == null))
+            {
+                return false;
+            }
+
+            var result = firstMusicNote.CompareTo(secondMusicNote);
+
+            if (result == -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public MusicNote Sharpened(int incrementQuantity)
         {
             int returnedOctaveShift;
