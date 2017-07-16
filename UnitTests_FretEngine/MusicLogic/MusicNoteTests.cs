@@ -80,13 +80,52 @@ namespace UnitTests_FretEngine.MusicLogic
             });
         }
 
+        [TestCase(AbstractMusicNote.ESharpFNatural, 0)]
+        [TestCase(AbstractMusicNote.DNatural, -4)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 2)]
+        public void Equals_WhenComparingWithNullCastAsObject_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            MusicNote secondMusicNote = null;
+
+            Assert.IsFalse(firstMusicNote.Equals((object)secondMusicNote));
+        }
+
+        [TestCase(AbstractMusicNote.FSharpGFlat, 3)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 14)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 7)]
+        [TestCase(AbstractMusicNote.ANatural, 3)]
+        [TestCase(AbstractMusicNote.DNatural, -20)]
+        public void Equals_WhenComparingEqualMusicNotesCastAsObject_ShouldReturnTrue(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            var secondMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            Assert.IsTrue(firstMusicNote.Equals((object)secondMusicNote));
+        }
+
+        [TestCase(AbstractMusicNote.GNatural, 2, AbstractMusicNote.GNatural, 1)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 4, AbstractMusicNote.BNaturalCFlat, 4)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, 8, AbstractMusicNote.ENaturalFFlat, 7)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, -12, AbstractMusicNote.BNaturalCFlat, 12)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 0, AbstractMusicNote.ESharpFNatural, 20)]
+        public void Equals_WhenComparingUnequalMusicNotesCastAsObject_ShouldReturnFalse(AbstractMusicNote firstAbstractMusicNote, int firstOctave, AbstractMusicNote secondAbstractMusicNote, int secondOctave)
+        {
+            var firstMusicNote = new MusicNote(firstAbstractMusicNote, firstOctave);
+            var secondMusicNote = new MusicNote(secondAbstractMusicNote, secondOctave);
+
+            Assert.IsFalse(firstMusicNote.Equals((object)secondMusicNote));
+        }
+
         [TestCase(AbstractMusicNote.ANatural, 8)]
         [TestCase(AbstractMusicNote.DSharpEFlat, -4)]
         [TestCase(AbstractMusicNote.FSharpGFlat, 0)]
         public void Equals_WhenComparingWithNull_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
         {
-            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            Assert.IsFalse(testMusicNote.Equals(null));
+            var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            MusicNote secondMusicNote = null;
+
+            Assert.IsFalse(firstMusicNote.Equals(secondMusicNote));
         }
 
         [TestCase(AbstractMusicNote.GNatural, 30)]
@@ -98,6 +137,7 @@ namespace UnitTests_FretEngine.MusicLogic
         {
             var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
             var secondMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
             Assert.IsTrue(firstMusicNote.Equals(secondMusicNote));
         }
 
@@ -110,6 +150,7 @@ namespace UnitTests_FretEngine.MusicLogic
         {
             var firstMusicNote = new MusicNote(firstAbstractMusicNote, firstOctave);
             var secondMusicNote = new MusicNote(secondAbstractMusicNote, secondOctave);
+
             Assert.IsFalse(firstMusicNote.Equals(secondMusicNote));
         }
 
