@@ -235,6 +235,15 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.IsTrue(testMusicNote != null);
         }
 
+        [Test]
+        public void InequalityOperator_WhenComparingBothNull_ShouldReturnFalse()
+        {
+            MusicNote firstMusicNote = null;
+            MusicNote secondMusicNote = null;
+
+            Assert.IsFalse(firstMusicNote != secondMusicNote);
+        }
+
         [TestCase(AbstractMusicNote.BNaturalCFlat, 9)]
         [TestCase(AbstractMusicNote.ASharpBFlat, 1)]
         [TestCase(AbstractMusicNote.CSharpDFlat, 12)]
