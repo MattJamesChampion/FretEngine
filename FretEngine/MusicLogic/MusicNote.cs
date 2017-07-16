@@ -192,7 +192,8 @@ namespace FretEngine.MusicLogic
 		/// <see cref="object"/>.
         /// </summary>
         /// <param name="obj">
-        /// An <see cref="object"/> that evaluates to <see cref="MusicNote"/>.
+        /// An <see cref="object"/> that evaluates to <see cref="MusicNote"/>,
+        /// or null.
         /// </param>
         /// <returns>
         /// An <see cref="int"/> that indicates whether this instance precedes,
