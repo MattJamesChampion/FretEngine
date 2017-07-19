@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using FretEngine.Common.DataTypes;
 
-namespace UnitTests_FretEngine.Common.Extensions
+namespace UnitTests_FretEngine.Common.DataTypes
 {
     [TestFixture]
     class AbstractMusicNoteUtilitiesTests
