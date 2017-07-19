@@ -397,5 +397,41 @@ namespace FretEngine.MusicLogic
 
             return new MusicNote(flattenedAbstractMusicNote, Octave + returnedOctaveShift);
         }
+
+        /// <summary>
+        /// Get the number of semitones between this instance and
+		/// <paramref name="targetMusicNote"/>.
+        /// </summary>
+        /// <param name="targetMusicNote">
+        /// The <see cref="MusicNote"/> whose semitone distance from this
+        /// instance will be returned, or null.
+        /// </param>
+        /// <returns>
+        /// An <see cref="int"/> representing the number of semitones between
+		/// this instance and
+        /// <paramref name="targetMusicNote"/>.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="targetMusicNote"/> is null.
+        /// </exception>
+        /// <remarks>
+        /// The result reflects how far this instance would need to be either
+		/// flattened or sharpened to get to
+		/// <paramref name="targetMusicNote"/>.
+        /// </remarks>
+        public int GetSemitoneDistance(MusicNote targetMusicNote)
+        {
+            if (targetMusicNote == null)
+            {
+                throw new ArgumentException("Target music note must not be null.");
+            }
+
+            var octaveDifference = targetMusicNote.Octave - Octave;
+
+            var octaveDifferenceInSemitones = octaveDifference * AbstractMusicNoteUtilities.GetNotesPerOctave();
+            var noteDifferenceInSemitones = targetMusicNote.Value - Value;
+
+            return octaveDifferenceInSemitones + noteDifferenceInSemitones;
+        }
     }
 }

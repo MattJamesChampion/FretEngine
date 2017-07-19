@@ -526,5 +526,35 @@ namespace UnitTests_FretEngine.MusicLogic
 
             Assert.AreEqual(expectedMusicNote, flattenedMusicNote);
         }
+
+        [TestCase(AbstractMusicNote.DNatural, 4, AbstractMusicNote.DSharpEFlat, 4, 1)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 0, AbstractMusicNote.FSharpGFlat, 0, 0)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -4, AbstractMusicNote.BNaturalCFlat, -4, 11)]
+        [TestCase(AbstractMusicNote.ANatural, 6, AbstractMusicNote.GNatural, 9, 34)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 9, AbstractMusicNote.GNatural, 4, -64)]
+        public void GetSemitoneDistance_WhenGivenValidMusicNotes_ShouldReturnCorrectResult(AbstractMusicNote firstAbstractMusicNote, int firstOctave, AbstractMusicNote secondAbstractMusicNote, int secondOctave, int expectedDistance)
+        {
+            var firstMusicNote = new MusicNote(firstAbstractMusicNote, firstOctave);
+            var secondMusicNote = new MusicNote(secondAbstractMusicNote, secondOctave);
+
+            var actualDistance = firstMusicNote.GetSemitoneDistance(secondMusicNote);
+            
+            Assert.AreEqual(expectedDistance, actualDistance);
+        }
+
+        [TestCase(AbstractMusicNote.CSharpDFlat, 1)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 7)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -4)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 0)]
+        [TestCase(AbstractMusicNote.ANatural, 2)]
+        public void GetSemitoneDistance_WhenGivenNull_ShouldThrowArgumentException(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            MusicNote secondMusicNote = null;
+
+            Assert.Throws<ArgumentException>(() => {
+                firstMusicNote.GetSemitoneDistance(secondMusicNote);
+            });
+        }
     }
 }
