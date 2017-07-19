@@ -78,6 +78,18 @@ namespace FretEngine.Common.DataTypes
     public static class AbstractMusicNoteUtilities
     {
         /// <summary>
+        /// Gets an <see cref="int"/> representing the number of notes in an
+		/// octave.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="int"/> representing the number of notes in an octave.
+        /// </returns>
+        public static int GetNotesPerOctave()
+        {
+            return Enum.GetNames(typeof(AbstractMusicNote)).Length;
+        }
+
+        /// <summary>
         /// Takes an <paramref name="initialAbstractMusicNote"/> and returns a new <see cref="AbstractMusicNote"/>
         /// that has been shifted by <paramref name="shiftQuantity"/> semitones.
         /// </summary>
@@ -100,7 +112,7 @@ namespace FretEngine.Common.DataTypes
         /// </returns>
         private static AbstractMusicNote GetShiftedAbstractMusicNote(AbstractMusicNote initialAbstractMusicNote, int shiftQuantity, out int octaveShift)
         {
-            var numberOfElements = Enum.GetNames(typeof(AbstractMusicNote)).Length;
+            var numberOfElements = GetNotesPerOctave();
             var abstractMusicNoteValue = (int)initialAbstractMusicNote;
 
             var modifiedAbstractMusicNoteValue = ((abstractMusicNoteValue + shiftQuantity) % numberOfElements);
