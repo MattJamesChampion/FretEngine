@@ -9,7 +9,7 @@ using FretEngine.Common.DataTypes;
 namespace UnitTests_FretEngine.Common.Extensions
 {
     [TestFixture]
-    class AbstractMusicNoteExtensionsTests
+    class AbstractMusicNoteUtilitiesTests
     {
         [TestCase(AbstractMusicNote.BSharpCNatural, 7, AbstractMusicNote.GNatural)]
         [TestCase(AbstractMusicNote.DSharpEFlat, 1, AbstractMusicNote.ENaturalFFlat)]

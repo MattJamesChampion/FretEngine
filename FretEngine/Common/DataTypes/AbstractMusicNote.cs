@@ -72,10 +72,10 @@ namespace FretEngine.Common.DataTypes
     }
 
     /// <summary>
-    /// A collection of extension methods designed to operate on
+    /// A collection of utilities designed to operate on
 	/// <see cref="AbstractMusicNote"/>.
     /// </summary>
-    public static class AbstractMusicNoteExtensions
+    public static class AbstractMusicNoteUtilities
     {
         /// <summary>
         /// Takes an <paramref name="initialAbstractMusicNote"/> and returns a new <see cref="AbstractMusicNote"/>
