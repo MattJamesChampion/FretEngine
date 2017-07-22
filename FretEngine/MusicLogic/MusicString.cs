@@ -36,5 +36,16 @@ namespace FretEngine.MusicLogic
         {
             RootNote = rootNote;
         }
+
+        /// <summary>
+        /// Creates a <see cref="string"/> representation of this instance.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/> representation of this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Format("MusicString with root note: {0}", RootNote);
+        }
     }
 }

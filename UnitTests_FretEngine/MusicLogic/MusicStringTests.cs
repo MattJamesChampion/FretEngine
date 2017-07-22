@@ -40,5 +40,22 @@ namespace UnitTests_FretEngine.MusicLogic
 
             Assert.AreEqual(testMusicNote, testMusicString.RootNote);
         }
+
+        [TestCase(AbstractMusicNote.DNatural, 4)]
+        [TestCase(AbstractMusicNote.GNatural, 1)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 20)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -7)]
+        [TestCase(AbstractMusicNote.ANatural, 0)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -0)]
+        public void ToString_WhenCalledOnAValidMusicString_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            var testMusicString = new MusicString(testMusicNote);
+
+            Assert.DoesNotThrow(() =>
+            {
+                testMusicString.ToString();
+            });
+        }
     }
 }
