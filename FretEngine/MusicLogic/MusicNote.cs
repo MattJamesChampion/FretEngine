@@ -272,6 +272,9 @@ namespace FretEngine.MusicLogic
         }
 
         /// <summary>
+        /// Compares two instances of <see cref="MusicNote"/> and indicates
+		/// whether <paramref name="firstMusicNote"/> is greater than
+		/// <paramref name="secondMusicNote"/>.
         /// </summary>
         /// <param name="firstMusicNote">
         /// The first <see cref="MusicNote"/> to compare, or null.
@@ -307,6 +310,9 @@ namespace FretEngine.MusicLogic
         }
 
         /// <summary>
+        /// Compares two instances of <see cref="MusicNote"/> and indicates
+        /// whether <paramref name="firstMusicNote"/> is less than
+        /// <paramref name="secondMusicNote"/>.
         /// </summary>
         /// <param name="firstMusicNote">
         /// The first <see cref="MusicNote"/> to compare, or null.
