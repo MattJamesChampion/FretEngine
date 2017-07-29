@@ -63,7 +63,7 @@ namespace UnitTests_FretEngine.MusicLogic
         [TestCase(AbstractMusicNote.DSharpEFlat, -6)]
         [TestCase(AbstractMusicNote.BNaturalCFlat, 14)]
         [TestCase(AbstractMusicNote.ANatural, 0)]
-        public void Equals_WhenComparingWithNull_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        public void Equals_WhenComparingMusicStringWithNull_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
             var testMusicString = new MusicString(testMusicNote);
@@ -140,7 +140,7 @@ namespace UnitTests_FretEngine.MusicLogic
         [TestCase(AbstractMusicNote.DSharpEFlat, -0)]
         [TestCase(AbstractMusicNote.FSharpGFlat, 4)]
         [TestCase(AbstractMusicNote.GSharpAFlat, 17)]
-        public void EqualityOperator_WhenComparingWithNull_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        public void EqualityOperator_WhenComparingMusicStringWithNull_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int testOctave)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
             var testMusicString = new MusicString(testMusicNote);
@@ -185,7 +185,7 @@ namespace UnitTests_FretEngine.MusicLogic
         [TestCase(AbstractMusicNote.ASharpBFlat, 0)]
         [TestCase(AbstractMusicNote.BSharpCNatural, 14)]
         [TestCase(AbstractMusicNote.GNatural, -12)]
-        public void InequalityOperator_WhenComparingWithNull_ShouldReturnTrue(AbstractMusicNote testAbstractMusicNote, int testOctave)
+        public void InequalityOperator_WhenComparingMusicStringWithNull_ShouldReturnTrue(AbstractMusicNote testAbstractMusicNote, int testOctave)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
             var testMusicString = new MusicString(testMusicNote);
