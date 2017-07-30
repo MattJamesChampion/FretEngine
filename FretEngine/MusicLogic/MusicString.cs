@@ -294,5 +294,31 @@ namespace FretEngine.MusicLogic
 
             return firstMusicString.RootNote < secondMusicString.RootNote;
         }
+
+        /// <summary>
+        /// Sharpens the <see cref="RootNote"/> of this instance by
+		/// <paramref name="incrementQuantity"/> semitones.
+        /// </summary>
+        /// <param name="incrementQuantity">
+        /// An <see cref="int"/> representing the number of semitones to
+		/// sharpen the <see cref="RootNote"/> of this instance by.
+        /// </param>
+        public void Sharpen(int incrementQuantity)
+        {
+            RootNote = RootNote.Sharpened(incrementQuantity);
+        }
+
+        /// <summary>
+        /// Flattens the <see cref="RootNote"/> of this instance by
+		/// <paramref name="decrementQuantity"/> semitones.
+        /// </summary>
+        /// <param name="decrementQuantity">
+        /// An <see cref="int"/> representing the number of semitones to
+		/// flatten the <see cref="RootNote"/> of this instance by.
+        /// </param>
+        public void Flatten(int decrementQuantity)
+        {
+            RootNote = RootNote.Flattened(decrementQuantity);
+        }
     }
 }
