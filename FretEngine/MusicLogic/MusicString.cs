@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FretEngine.Common.DataTypes;
+using FretEngine.Common.Exceptions;
 
 namespace FretEngine.MusicLogic
 {
@@ -345,6 +346,43 @@ namespace FretEngine.MusicLogic
         public static bool IsValidMusicStringPosition(int musicStringPosition)
         {
             return (musicStringPosition >= 0);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="MusicNote"/> at the given
+        /// <paramref name="musicStringPosition"/>.
+        /// </summary>
+        /// <param name="musicStringPosition">
+        /// An <see cref="int"/> representing the position on this
+        /// <see cref="MusicString"/> to return the <see cref="MusicNote"/>
+		/// from.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MusicNote"/> at the given
+        /// <paramref name="musicStringPosition"/>.
+        /// </returns>
+        /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
+        /// <paramref name="musicStringPosition"/> is not a valid music string
+		/// position.
+        /// </exception>
+        /// <remarks>
+        /// <paramref name="musicStringPosition"/> refers to an abstract
+		/// position on a string that is based on semitones. As such, a
+        /// <paramref name="musicStringPosition"/> of x will return a
+        /// <see cref="MusicNote"/> that represents <see cref="RootNote"/>
+        /// sharpened by x semitones.
+        /// </remarks>
+        public MusicNote GetMusicNoteAtMusicStringPosition(int musicStringPosition)
+        {
+            if (IsValidMusicStringPosition(musicStringPosition))
+            {
+                return RootNote.Sharpened(musicStringPosition);
+            }
+            else
+            {
+                var exceptionMessage = string.Format("{0} is not a valid music string position.", musicStringPosition);
+                throw new MusicStringExceptions.InvalidMusicStringPositionException(exceptionMessage);
+            }
         }
     }
 }

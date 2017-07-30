@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using FretEngine.Common.DataTypes;
+using FretEngine.Common.Exceptions;
 using FretEngine.MusicLogic;
 
 namespace UnitTests_FretEngine.MusicLogic
@@ -603,6 +604,38 @@ namespace UnitTests_FretEngine.MusicLogic
         public void IsValidMusicStringPosition_WhenGivenInvalidMusicStringPosition_ShouldReturnFalse(int musicStringPosition)
         {
             Assert.IsFalse(MusicString.IsValidMusicStringPosition(musicStringPosition));
+        }
+
+        [TestCase(AbstractMusicNote.ESharpFNatural, 4, 40, AbstractMusicNote.ANatural, 7)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 17, 12, AbstractMusicNote.BSharpCNatural, 18)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 0, 1, AbstractMusicNote.BSharpCNatural, 1)]
+        [TestCase(AbstractMusicNote.GNatural, -12, 0, AbstractMusicNote.GNatural, -12)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 9, 92, AbstractMusicNote.BSharpCNatural, 17)]
+        public void GetMusicNoteAtMusicStringPosition_WhenGivenValidMusicStringPosition_ShouldReturnCorrectValues(AbstractMusicNote startAbstractMusicNote, int startOctave, int musicStringPosition, AbstractMusicNote expectedAbstractMusicNote, int expectedOctave)
+        {
+            var expectedMusicNote = new MusicNote(expectedAbstractMusicNote, expectedOctave);
+
+            var testMusicNote = new MusicNote(startAbstractMusicNote, startOctave);
+            var testMusicString = new MusicString(testMusicNote);
+
+            var actualMusicNote = testMusicString.GetMusicNoteAtMusicStringPosition(musicStringPosition);
+
+            Assert.AreEqual(expectedMusicNote, actualMusicNote);
+        }
+
+        [TestCase(AbstractMusicNote.BSharpCNatural, 0, -1)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 4, -6)]
+        [TestCase(AbstractMusicNote.GNatural, 14, -271)]
+        [TestCase(AbstractMusicNote.ANatural, -12, -9)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 8, -30)]
+        public void GetMusicNoteAtMusicStringPosition_WhenGivenInvalidMusicStringPosition_ShouldThrowInvalidMusicStringPositionException(AbstractMusicNote testAbstractMusicNote, int testOctave, int musicStringPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            var testMusicString = new MusicString(testMusicNote);
+
+            Assert.Throws<MusicStringExceptions.InvalidMusicStringPositionException>(() => {
+                testMusicString.GetMusicNoteAtMusicStringPosition(musicStringPosition);
+            });
         }
     }
 }
