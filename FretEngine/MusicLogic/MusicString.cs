@@ -32,9 +32,19 @@ namespace FretEngine.MusicLogic
         /// <param name="rootNote">
         /// The <see cref="MusicNote"/> to be assigned to the new instance.
         /// </param>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="rootNote"/> is null.
+        /// </exception>
         public MusicString(MusicNote rootNote)
         {
-            RootNote = rootNote;
+            if (rootNote != null)
+            {
+                RootNote = rootNote;
+            }
+            else
+            {
+                throw new ArgumentException("Root note must not be null.");
+            }
         }
 
         /// <summary>

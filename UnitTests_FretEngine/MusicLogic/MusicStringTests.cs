@@ -27,6 +27,17 @@ namespace UnitTests_FretEngine.MusicLogic
             });
         }
 
+        [Test]
+        public void MusicString_WhenConstructingWithNullMusicNote_ShouldThrowArgumentException()
+        {
+            MusicNote testMusicNote = null;
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                new MusicString(testMusicNote);
+            });
+        }
+
         [TestCase(AbstractMusicNote.BSharpCNatural, 4)]
         [TestCase(AbstractMusicNote.ASharpBFlat, 17)]
         [TestCase(AbstractMusicNote.ESharpFNatural, 2)]
