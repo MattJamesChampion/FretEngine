@@ -320,5 +320,21 @@ namespace FretEngine.MusicLogic
         {
             RootNote = RootNote.Flattened(decrementQuantity);
         }
+
+        /// <summary>
+        /// Checks whether a given <paramref name="musicStringPosition"/> is
+		/// valid.
+        /// </summary>
+        /// <param name="musicStringPosition">
+        /// The music string position to check the validity of.
+        /// </param>
+        /// <returns>
+        /// A <see cref="bool"/> representing whether the given
+        /// <paramref name="musicStringPosition"/> is valid.
+        /// </returns>
+        public static bool IsValidMusicStringPosition(int musicStringPosition)
+        {
+            return (musicStringPosition >= 0);
+        }
     }
 }

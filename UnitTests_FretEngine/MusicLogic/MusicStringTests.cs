@@ -573,5 +573,25 @@ namespace UnitTests_FretEngine.MusicLogic
 
             Assert.AreEqual(expectedMusicString, actualMusicString);
         }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(7)]
+        [TestCase(54)]
+        [TestCase(200)]
+        public void IsValidMusicStringPosition_WhenGivenValidMusicStringPosition_ShouldReturnTrue(int musicStringPosition)
+        {
+            Assert.IsTrue(MusicString.IsValidMusicStringPosition(musicStringPosition));
+        }
+
+        [TestCase(-1)]
+        [TestCase(-3)]
+        [TestCase(-8)]
+        [TestCase(-50)]
+        [TestCase(-132)]
+        public void IsValidMusicStringPosition_WhenGivenInvalidMusicStringPosition_ShouldReturnFalse(int musicStringPosition)
+        {
+            Assert.IsFalse(MusicString.IsValidMusicStringPosition(musicStringPosition));
+        }
     }
 }
