@@ -440,5 +440,29 @@ namespace FretEngine.MusicLogic
                 yield return GetMusicNoteAtMusicStringPosition(currentPosition);
             }
         }
+
+        /// <summary>
+        /// Returns an <see cref="IEnumerable{MusicNote}"/> of the
+        /// <see cref="MusicNote"/> values between the root position and
+		/// <paramref name="endPosition"/> (inclusive) on this
+		/// <see cref="MusicString"/>.
+        /// </summary>
+        /// <param name="endPosition">
+        /// The position of the last <see cref="MusicNote"/> to return.
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{MusicNote}"/> of the
+        /// <see cref="MusicNote"/> values between the root position and
+		/// <paramref name="endPosition"/> (inclusive) on this
+		/// <see cref="MusicString"/>.
+        /// </returns>
+        /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
+        /// <paramref name="endPosition"/> is not a valid music string
+        /// position.
+        /// </exception>
+        public IEnumerable<MusicNote> GetMusicNotes(int endPosition)
+        {
+            return GetMusicNotes(0, endPosition);
+        }
     }
 }
