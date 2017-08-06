@@ -384,5 +384,61 @@ namespace FretEngine.MusicLogic
                 throw new MusicStringExceptions.InvalidMusicStringPositionException(exceptionMessage);
             }
         }
+
+        /// <summary>
+        /// Returns an <see cref="IEnumerable{MusicNote}"/> of the
+		/// <see cref="MusicNote"/> values between
+		/// <paramref name="startPosition"/> and <paramref name="endPosition"/>
+		/// (inclusive) on this <see cref="MusicString"/>.
+        /// </summary>
+        /// <param name="startPosition">
+        /// The position of the first <see cref="MusicNote"/> to return.
+        /// </param>
+        /// <param name="endPosition">
+        /// The position of the last <see cref="MusicNote"/> to return.
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{MusicNote}"/> of the
+		/// <see cref="MusicNote"/> values between
+		/// <paramref name="startPosition"/> and <paramref name="endPosition"/>
+		/// (inclusive) on this <see cref="MusicString"/>.
+        /// </returns>
+        /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
+        /// <paramref name="startPosition"/> is not a valid music string
+		/// position.
+        /// </exception>
+        /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
+        /// <paramref name="endPosition"/> is not a valid music string
+		/// position.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="startPosition"/> is greater than
+		/// <paramref name="endPosition"/>.
+        /// </exception>
+        public IEnumerable<MusicNote> GetMusicNotes(int startPosition, int endPosition)
+        {
+            if (!IsValidMusicStringPosition(startPosition))
+            {
+                var errorMessage = string.Format("Start position ({0}) is not a valid music string position.", startPosition);
+                throw new MusicStringExceptions.InvalidMusicStringPositionException(errorMessage);
+            }
+
+            if (!IsValidMusicStringPosition(endPosition))
+            {
+                var errorMessage = string.Format("End position ({0}) is not a valid music string position.", endPosition);
+                throw new MusicStringExceptions.InvalidMusicStringPositionException(errorMessage);
+            }
+            
+            if (startPosition > endPosition)
+            {
+                var errorMessage = "End position must be greater than or equal to start position.";
+                throw new ArgumentException(errorMessage);
+            }
+
+            for (int currentPosition = startPosition; currentPosition <= endPosition; currentPosition++)
+            {
+                yield return GetMusicNoteAtMusicStringPosition(currentPosition);
+            }
+        }
     }
 }

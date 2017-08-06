@@ -637,5 +637,93 @@ namespace UnitTests_FretEngine.MusicLogic
                 testMusicString.GetMusicNoteAtMusicStringPosition(musicStringPosition);
             });
         }
+
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 8, 0, 12)]
+        [TestCase(AbstractMusicNote.ANatural, 0, 7, 7)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, -6, 34, 37)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 17, 100, 200)]
+        [TestCase(AbstractMusicNote.DNatural, 4, 2, 10)]
+        public void GetMusicNotes_WhenGivenValidValues_ShouldReturnCorrectValues(AbstractMusicNote testAbstractMusicNote, int testOctave, int startPosition, int endPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote);
+
+            var expectedMusicNotes = new List<MusicNote>();
+            var actualMusicNotes = new List<MusicNote>();
+
+            for (var currentPosition = startPosition; currentPosition <= endPosition; currentPosition++)
+            {
+                var expectedMusicNote = testMusicString.RootNote.Sharpened(currentPosition);
+                expectedMusicNotes.Add(expectedMusicNote);
+            }
+
+            foreach (var actualMusicNote in testMusicString.GetMusicNotes(startPosition, endPosition))
+            {
+                actualMusicNotes.Add(actualMusicNote);
+            }
+
+            Assert.AreEqual(expectedMusicNotes, actualMusicNotes);
+        }
+
+        [TestCase(AbstractMusicNote.GNatural, -8, 100, 10)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 5, 9, 8)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, 0, 3, 2)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, -2, 20, 10)]
+        [TestCase(AbstractMusicNote.ANatural, 13, 7, 2)]
+        public void GetMusicNotes_WhenEndPositionIsGreaterThanStartPosition_ShouldThrowArgumentException(AbstractMusicNote testAbstractMusicNote, int testOctave, int startPosition, int endPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                foreach (var musicNote in testMusicString.GetMusicNotes(startPosition, endPosition))
+                {
+                    //This loop is only required to trigger the exception.
+                }
+            });
+        }
+
+        [TestCase(AbstractMusicNote.GNatural, 8, -3, 20)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 21, -1, 7)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, -7, -20, 2)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 14, -93, 12)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 0, -14, 0)]
+        public void GetMusicNotes_WhenGivenInvalidStartPosition_ShouldThrowInvalidMusicStringPositionException(AbstractMusicNote testAbstractMusicNote, int testOctave, int startPosition, int endPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote);
+
+            Assert.Throws<MusicStringExceptions.InvalidMusicStringPositionException>(() =>
+            {
+                foreach (var musicNote in testMusicString.GetMusicNotes(startPosition, endPosition))
+                {
+                    //This loop is only required to trigger the exception.
+                }
+            });
+        }
+
+        [TestCase(AbstractMusicNote.DSharpEFlat, 17, 12, -1)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 4, 6, -8)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -3, 2, -200)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 0, 0, -49)]
+        [TestCase(AbstractMusicNote.GNatural, -11, 50, -17)]
+        public void GetMusicNotes_WhenGivenInvalidEndPosition_ShouldThrowInvalidMusicStringPositionException(AbstractMusicNote testAbstractMusicNote, int testOctave, int startPosition, int endPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote);
+
+            Assert.Throws<MusicStringExceptions.InvalidMusicStringPositionException>(() =>
+            {
+                foreach (var musicNote in testMusicString.GetMusicNotes(startPosition, endPosition))
+                {
+                    //This loop is only required to trigger the exception.
+                }
+            });
+        }
     }
 }
