@@ -13,9 +13,9 @@ namespace UnitTests_FretEngine.MusicLogic
     class MusicNoteTests
     {
         [TestCase(AbstractMusicNote.BSharpCNatural, 0)]
-        [TestCase(AbstractMusicNote.DNatural, 2)]
+        [TestCase(AbstractMusicNote.DNatural, -7)]
         [TestCase(AbstractMusicNote.ENaturalFFlat, 4)]
-        [TestCase(AbstractMusicNote.FSharpGFlat, 6)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 17)]
         [TestCase(AbstractMusicNote.GSharpAFlat, 8)]
         [TestCase(AbstractMusicNote.ASharpBFlat, 10)]
         public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndValidOctave_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int testOctave)
