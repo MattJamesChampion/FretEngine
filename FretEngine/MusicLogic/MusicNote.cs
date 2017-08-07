@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FretEngine.Common.DataTypes;
+using FretEngine.Common.Exceptions;
 
 namespace FretEngine.MusicLogic
 {
@@ -40,23 +41,42 @@ namespace FretEngine.MusicLogic
         /// <summary>
         /// Represents the internal note octave in scientific pitch notation.
         /// </summary>
-        public readonly int Octave;
+        public readonly int? Octave;
 
         /// <summary>
         /// Instantiates a new instance of the <see cref="MusicNote"/> class.
         /// </summary>
         /// <param name="value">
         /// The <see cref="AbstractMusicNote"/> to be assigned to the new
-		/// instance.
+        /// instance.
         /// </param>
         /// <param name="octave">
-        /// An <see cref="int"/> representing an octave in scientific pitch
-		/// notation.
+        /// A nullable <see cref="int"/> representing an octave in scientific
+        /// pitch notation. A value of null represents a
+        /// <see cref="MusicNote"/> with no octave. Default value is null.
         /// </param>
-        public MusicNote(AbstractMusicNote value, int octave = 4)
+        /// <remarks>
+        /// MusicNotes that have no octave (octave is set to null) are
+        /// considered to precede MusicNotes that have an octave when it comes
+        /// to sort order.
+        /// </remarks>
+        public MusicNote(AbstractMusicNote value, int? octave = null)
         {
             Value = value;
             Octave = octave;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="bool"/> representing whether this instance of
+        /// <see cref="MusicNote"/> has an Octave or not.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="bool"/> representing whether this instance of
+        /// <see cref="MusicNote"/> has an Octave or not.
+        /// </returns>
+        public bool HasOctave()
+        {
+            return Octave.HasValue;
         }
 
         /// <summary>
@@ -67,7 +87,14 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override string ToString()
         {
-            return string.Format("{0} {1}", Value, Octave);
+            if (HasOctave())
+            {
+                return string.Format("{0} {1}", Value, Octave);
+            }
+            else
+            {
+                return string.Format("{0}", Value);
+            }   
         }
 
         /// <summary>
@@ -132,7 +159,14 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override int GetHashCode()
         {
-            return new { Value, Octave }.GetHashCode();
+            if (HasOctave())
+            {
+                return new { Value, Octave }.GetHashCode();
+            }
+            else
+            {
+                return Value.GetHashCode();
+            }
         }
 
         /// <summary>
@@ -187,9 +221,9 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Compares this instance with a specified <see cref="object"/> and
-		/// indicates whether this instance precedes, follows, or appears in
-		/// the same position in the sort order as the specified
-		/// <see cref="object"/>.
+        /// indicates whether this instance precedes, follows, or appears in
+        /// the same position in the sort order as the specified
+        /// <see cref="object"/>.
         /// </summary>
         /// <param name="obj">
         /// An <see cref="object"/> that evaluates to <see cref="MusicNote"/>,
@@ -197,13 +231,13 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// An <see cref="int"/> that indicates whether this instance precedes,
-		/// follows, or appears in the same position in the sort order as the
-		/// <paramref name="obj"/> parameter. Less than zero indicates that
-		/// this instance precedes <paramref name="obj"/>. Zero indicates that
-		/// this instance has the same position in the sort order as
-		/// <paramref name="obj"/>. Greater than zero indicates that this
-		/// instance follows <paramref name="obj"/> or that
-		/// <paramref name="obj"/> is null.
+        /// follows, or appears in the same position in the sort order as the
+        /// <paramref name="obj"/> parameter. Less than zero indicates that
+        /// this instance precedes <paramref name="obj"/>. Zero indicates that
+        /// this instance has the same position in the sort order as
+        /// <paramref name="obj"/>. Greater than zero indicates that this
+        /// instance follows <paramref name="obj"/> or that
+        /// <paramref name="obj"/> is null.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="obj"/> is not a <see cref="MusicNote"/>.
@@ -229,23 +263,23 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Compares this instance with a specified <see cref="MusicNote"/> and
-		/// indicates whether this instance precedes, follows, or appears in
-		/// the same position in the sort order as the specified
-		/// <see cref="MusicNote"/>.
+        /// indicates whether this instance precedes, follows, or appears in
+        /// the same position in the sort order as the specified
+        /// <see cref="MusicNote"/>.
         /// </summary>
         /// <param name="targetMusicNote">
         /// The <see cref="MusicNote"/> to compare, or null.
         /// </param>
         /// <returns>
         /// An <see cref="int"/> that indicates whether this instance precedes,
-		/// follows, or appears in the same position in the sort order as the
-		/// <paramref name="targetMusicNote"/> parameter. Less than zero
-		/// indicates that this instance precedes
-		/// <paramref name="targetMusicNote"/>. Zero indicates that this
-		/// instance has the same position in the sort order as
-		/// <paramref name="targetMusicNote"/>. Greater than zero indicates
-		/// that this instance follows <paramref name="targetMusicNote"/> or
-		/// that <paramref name="targetMusicNote"/> is null.
+        /// follows, or appears in the same position in the sort order as the
+        /// <paramref name="targetMusicNote"/> parameter. Less than zero
+        /// indicates that this instance precedes
+        /// <paramref name="targetMusicNote"/>. Zero indicates that this
+        /// instance has the same position in the sort order as
+        /// <paramref name="targetMusicNote"/>. Greater than zero indicates
+        /// that this instance follows <paramref name="targetMusicNote"/> or
+        /// that <paramref name="targetMusicNote"/> is null.
         /// </returns>
         public int CompareTo(MusicNote targetMusicNote)
         {
@@ -254,20 +288,33 @@ namespace FretEngine.MusicLogic
                 return 1;
             }
 
-            if (Octave == targetMusicNote.Octave)
+            if (HasOctave() && targetMusicNote.HasOctave())
             {
-                if (Value == targetMusicNote.Value)
-                {
-                    return 0;
-                }
-                else
+                if (Octave == targetMusicNote.Octave)
                 {
                     return Value.CompareTo(targetMusicNote.Value);
                 }
+                else
+                {
+                    return ((int)Octave).CompareTo((int)targetMusicNote.Octave);
+                }
+            }
+            else if (!HasOctave() && !targetMusicNote.HasOctave())
+            {
+                return Value.CompareTo(targetMusicNote.Value);
             }
             else
             {
-                return Octave.CompareTo(targetMusicNote.Octave);
+                if (!HasOctave() && targetMusicNote.HasOctave())
+                {
+                    //Octaveless MusicNotes precede MusicNotes that have octaves.
+                    return -1;
+                }
+                else
+                {
+                    //MusicNotes that have octaves follow octaveless MusicNotes.
+                    return 1;
+                }
             }
         }
 
@@ -350,22 +397,22 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Returns a new sharpened instance of the current
-		/// <see cref="MusicNote"/>.
+        /// <see cref="MusicNote"/>.
         /// </summary>
         /// <param name="incrementQuantity">
         /// An <see cref="int"/> representing the number of semitones to
-		/// sharpen this instance of <see cref="MusicNote"/> by.
+        /// sharpen this instance of <see cref="MusicNote"/> by.
         /// </param>
         /// <returns>
         /// A new sharpened instance of the current <see cref="MusicNote"/>.
         /// </returns>
         /// <remarks>
         /// Depending on the starting <see cref="MusicNote"/> and the
-		/// <paramref name="incrementQuantity"/>, both <see cref="Value"/> and
-		/// <see cref="Octave"/> may be changed. This is based on whether the
-		/// new <see cref="MusicNote"/> <see cref="Value"/> would cross over an
-		/// octave boundary, therefore modifying the related
-		/// <see cref="Octave"/>.
+        /// <paramref name="incrementQuantity"/>, both <see cref="Value"/> and
+        /// <see cref="Octave"/> may be changed. This is based on whether the
+        /// new <see cref="MusicNote"/> <see cref="Value"/> would cross over an
+        /// octave boundary, therefore modifying the related
+        /// <see cref="Octave"/>.
         /// </remarks>
         public MusicNote Sharpened(int incrementQuantity)
         {
@@ -373,7 +420,14 @@ namespace FretEngine.MusicLogic
 
             AbstractMusicNote sharpenedAbstractMusicNote = Value.Sharpened(incrementQuantity, out returnedOctaveShift);
 
-            return new MusicNote(sharpenedAbstractMusicNote, Octave + returnedOctaveShift);
+            if (HasOctave())
+            {
+                return new MusicNote(sharpenedAbstractMusicNote, Octave + returnedOctaveShift);
+            }
+            else
+            {
+                return new MusicNote(sharpenedAbstractMusicNote, null);
+            }
         }
 
         /// <summary>
@@ -382,18 +436,18 @@ namespace FretEngine.MusicLogic
         /// </summary>
         /// <param name="decrementQuantity">
         /// An <see cref="int"/> representing the number of semitones to
-		/// flatten this instance of <see cref="MusicNote"/> by.
+        /// flatten this instance of <see cref="MusicNote"/> by.
         /// </param>
         /// <returns>
         /// A new flattened instance of the current <see cref="MusicNote"/>.
         /// </returns>
         /// <remarks>
         /// Depending on the starting <see cref="MusicNote"/> and the
-		/// <paramref name="decrementQuantity"/>, both <see cref="Value"/> and
-		/// <see cref="Octave"/> may be changed. This is based on whether the
-		/// new <see cref="MusicNote"/> <see cref="Value"/> would cross over an
-		/// octave boundary, therefore modifying the related
-		/// <see cref="Octave"/>.
+        /// <paramref name="decrementQuantity"/>, both <see cref="Value"/> and
+        /// <see cref="Octave"/> may be changed. This is based on whether the
+        /// new <see cref="MusicNote"/> <see cref="Value"/> would cross over an
+        /// octave boundary, therefore modifying the related
+        /// <see cref="Octave"/>.
         /// </remarks>
         public MusicNote Flattened(int decrementQuantity)
         {
@@ -401,12 +455,19 @@ namespace FretEngine.MusicLogic
 
             AbstractMusicNote flattenedAbstractMusicNote = Value.Flattened(decrementQuantity, out returnedOctaveShift);
 
-            return new MusicNote(flattenedAbstractMusicNote, Octave + returnedOctaveShift);
+            if (HasOctave())
+            {
+                return new MusicNote(flattenedAbstractMusicNote, Octave + returnedOctaveShift);
+            }
+            else
+            {
+                return new MusicNote(flattenedAbstractMusicNote, null);
+            }
         }
 
         /// <summary>
         /// Get the number of semitones between this instance and
-		/// <paramref name="targetMusicNote"/>.
+        /// <paramref name="targetMusicNote"/>.
         /// </summary>
         /// <param name="targetMusicNote">
         /// The <see cref="MusicNote"/> whose semitone distance from this
@@ -414,16 +475,20 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// An <see cref="int"/> representing the number of semitones between
-		/// this instance and
-        /// <paramref name="targetMusicNote"/>.
+        /// this instance and <paramref name="targetMusicNote"/>.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="targetMusicNote"/> is null.
         /// </exception>
+        /// <exception cref="MusicNoteExceptions.InvalidMusicNoteComparisonException">
+        /// This instance of <see cref="MusicNote"/> does not have a valid
+        /// Octave whilst <paramref name="targetMusicNote"/> does, or vice
+        /// versa.
+        /// </exception>
         /// <remarks>
         /// The result reflects how far this instance would need to be either
-		/// flattened or sharpened to get to
-		/// <paramref name="targetMusicNote"/>.
+        /// flattened or sharpened to get to
+        /// <paramref name="targetMusicNote"/>.
         /// </remarks>
         public int GetSemitoneDistance(MusicNote targetMusicNote)
         {
@@ -432,12 +497,24 @@ namespace FretEngine.MusicLogic
                 throw new ArgumentException("Target music note must not be null.");
             }
 
-            var octaveDifference = targetMusicNote.Octave - Octave;
-
-            var octaveDifferenceInSemitones = octaveDifference * AbstractMusicNoteUtilities.GetNotesPerOctave();
             var noteDifferenceInSemitones = targetMusicNote.Value - Value;
 
-            return octaveDifferenceInSemitones + noteDifferenceInSemitones;
+            if (HasOctave() && targetMusicNote.HasOctave())
+            {
+                var octaveDifference = (int)targetMusicNote.Octave - (int)Octave;
+                var octaveDifferenceInSemitones = octaveDifference * AbstractMusicNoteUtilities.GetNotesPerOctave();
+
+                return octaveDifferenceInSemitones + noteDifferenceInSemitones;
+            }
+            else if (!HasOctave() && !targetMusicNote.HasOctave())
+            {
+                return noteDifferenceInSemitones;
+            }
+            else
+            {
+                var errorMessage = "Cannot compare a MusicNote with an octaveless MusicNote.";
+                throw new MusicNoteExceptions.InvalidMusicNoteComparisonException(errorMessage);
+            }
         }
     }
 }

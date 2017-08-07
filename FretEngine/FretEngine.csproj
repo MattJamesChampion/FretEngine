@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DataTypes\AbstractMusicNote.cs" />
+    <Compile Include="Common\Exceptions\MusicNoteExceptions.cs" />
     <Compile Include="Common\Exceptions\MusicStringExceptions.cs" />
     <Compile Include="MusicLogic\MusicNote.cs" />
     <Compile Include="MusicLogic\MusicString.cs" />
