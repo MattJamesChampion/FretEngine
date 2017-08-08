@@ -464,5 +464,39 @@ namespace FretEngine.MusicLogic
         {
             return GetMusicNotes(0, endPosition);
         }
+
+        /// <summary>
+        /// Returns whether or not a given <see cref="MusicNote"/> exists on
+        /// this instance.
+        /// </summary>
+        /// <param name="targetMusicNote">
+        /// The <see cref="MusicNote"/> to confirm the existence of.
+        /// </param>
+        /// <returns>
+        /// A <see cref="bool"/> representing whether or not
+        /// <paramref name="targetMusicNote"/> exists on this instance.
+        /// </returns>
+        public bool HasMusicNote(MusicNote targetMusicNote)
+        {
+            if (RootNote.HasOctave() && targetMusicNote.HasOctave())
+            {
+                if ((targetMusicNote > RootNote) || (targetMusicNote == RootNote))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (!RootNote.HasOctave() && !targetMusicNote.HasOctave())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
