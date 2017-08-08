@@ -498,5 +498,55 @@ namespace FretEngine.MusicLogic
                 return false;
             }
         }
+
+        /// <summary>
+        /// Returns the music string position of the
+        /// <paramref name="targetMusicNote"/> on this instance.
+        /// </summary>
+        /// <param name="targetMusicNote">
+        /// The <see cref="MusicNote"/> to find the music string position of.
+        /// </param>
+        /// <returns>
+        /// An <see cref="int"/> representing the music string position of
+        /// <paramref name="targetMusicNote"/>.
+        /// </returns>
+        /// <exception cref="MusicNoteExceptions.InvalidMusicNoteComparisonException">
+        /// This instance of <see cref="MusicNote"/> does not have a valid
+        /// Octave whilst <paramref name="targetMusicNote"/> does, or vice
+        /// versa.
+        /// </exception>
+        /// <exception cref="MusicStringExceptions.MusicStringHasNoSuchMusicNoteException">
+        /// <paramref name="targetMusicNote"/> does not exist on this
+        /// <see cref="MusicString"/>.
+        /// </exception>
+        public int GetMusicStringPositionOfMusicNote(MusicNote targetMusicNote)
+        {
+            if (RootNote.HasOctave() ^ targetMusicNote.HasOctave())
+            {
+                var errorMessage = "Cannot compare a MusicNote with an octaveless MusicNote.";
+                throw new MusicNoteExceptions.InvalidMusicNoteComparisonException(errorMessage);
+            }
+            else
+            {
+                if (HasMusicNote(targetMusicNote))
+                {
+                    var semitoneDistance = RootNote.GetSemitoneDistance(targetMusicNote);
+
+                    if (semitoneDistance < 0)
+                    {
+                        return AbstractMusicNoteUtilities.GetNotesPerOctave() + semitoneDistance;
+                    }
+                    else
+                    {
+                        return semitoneDistance;
+                    }
+                }
+                else
+                {
+                    var errorMessage = "Target MusicNote does not exist on this MusicString.";
+                    throw new MusicStringExceptions.MusicStringHasNoSuchMusicNoteException(errorMessage);
+                }
+            }
+        }
     }
 }
