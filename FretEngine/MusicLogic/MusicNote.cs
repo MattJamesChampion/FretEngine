@@ -10,25 +10,25 @@ namespace FretEngine.MusicLogic
 {
     /// <summary>
     /// This class is an abstraction of an individual note in the English
-	/// chromatic scale using scientific pitch notation.
+    /// chromatic scale using scientific pitch notation.
     /// </summary>
     /// <remarks>
     /// <para>
     /// Due to the complexity of musical notes and the numerous subtleties that
-	/// exist based on each variation, this class is intended to abstract away
-	/// a number of the specifics. As such, this class is not intended to be
-	/// used for the faithful representation of every possible musical note,
-	/// but rather as a way to gloss over the details in situations where
-	/// strict adherence to the reality of the situation is not necessary.
+    /// exist based on each variation, this class is intended to abstract away
+    /// a number of the specifics. As such, this class is not intended to be
+    /// used for the faithful representation of every possible musical note,
+    /// but rather as a way to gloss over the details in situations where
+    /// strict adherence to the reality of the situation is not necessary.
     /// </para>
     /// <para>
     /// This class is immutable and should only ever return new instances of
     /// itself in order to prevent multiple references to the same object being
-	/// modified at the same time. Immutability also better fits the reality of
+    /// modified at the same time. Immutability also better fits the reality of
     /// what's being modeled in this class; musical notes in real life are
-	/// immutable and changing the note that is currently being represented
-	/// does not mean changing the actual value of the note, which is a subtle
-	/// but important distinction.
+    /// immutable and changing the note that is currently being represented
+    /// does not mean changing the actual value of the note, which is a subtle
+    /// but important distinction.
     /// </para>
     /// </remarks>
     public class MusicNote : IComparable, IComparable<MusicNote>
@@ -99,17 +99,17 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Determines whether a specified <see cref="object"/> has the same
-		/// value as the current instance.
+        /// value as the current instance.
         /// </summary>
         /// <param name="obj">
         /// The <see cref="object"/> to compare with the current instance, or
-		/// null.
+        /// null.
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="obj"/> is the same as the
-		/// current instance; otherwise, false. If <paramref name="obj"/> is
-		/// null, or cannot be cast as a valid <see cref="MusicNote"/>, the
-		/// method returns false.
+        /// current instance; otherwise, false. If <paramref name="obj"/> is
+        /// null, or cannot be cast as a valid <see cref="MusicNote"/>, the
+        /// method returns false.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -130,16 +130,16 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Determines whether a specified <see cref="MusicNote"/> object has
-		/// the same value as the current instance.
+        /// the same value as the current instance.
         /// </summary>
         /// <param name="targetMusicNote">
         /// The <see cref="MusicNote"/> to compare with the current instance,
-		/// or null.
+        /// or null.
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="targetMusicNote"/> is the same
-		/// as the current instance; otherwise, false. If
-		/// <paramref name="targetMusicNote"/> is null, the method returns false.
+        /// as the current instance; otherwise, false. If
+        /// <paramref name="targetMusicNote"/> is null, the method returns false.
         /// </returns>
         public bool Equals(MusicNote targetMusicNote)
         {
@@ -171,7 +171,7 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Determines whether two specified instances of
-		/// <see cref="MusicNote"/> have the same value.
+        /// <see cref="MusicNote"/> have the same value.
         /// </summary>
         /// <param name="firstMusicNote">
         /// The first <see cref="MusicNote"/> to compare, or null.
@@ -181,8 +181,8 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="firstMusicNote"/> is the same
-		/// as the value of <paramref name="secondMusicNote"/>; otherwise,
-		/// false.
+        /// as the value of <paramref name="secondMusicNote"/>; otherwise,
+        /// false.
         /// </returns>
         public static bool operator == (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -201,7 +201,7 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Determines whether two specified instances of
-		/// <see cref="MusicNote"/> do not have the same value.
+        /// <see cref="MusicNote"/> do not have the same value.
         /// </summary>
         /// <param name="firstMusicNote">
         /// The first <see cref="MusicNote"/> to compare, or null.
@@ -211,8 +211,8 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="firstMusicNote"/> is not the
-		/// same as the value of <paramref name="secondMusicNote"/>; otherwise,
-		/// false.
+        /// same as the value of <paramref name="secondMusicNote"/>; otherwise,
+        /// false.
         /// </returns>
         public static bool operator != (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -357,8 +357,8 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Compares two instances of <see cref="MusicNote"/> and indicates
-		/// whether <paramref name="firstMusicNote"/> is greater than
-		/// <paramref name="secondMusicNote"/>.
+        /// whether <paramref name="firstMusicNote"/> is greater than
+        /// <paramref name="secondMusicNote"/>.
         /// </summary>
         /// <param name="firstMusicNote">
         /// The first <see cref="MusicNote"/> to compare, or null.
@@ -368,11 +368,11 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// A boolean that indicates whether <paramref name="firstMusicNote"/>
-		/// is greater than <paramref name="secondMusicNote"/>. true indicates
-		/// that <paramref name="firstMusicNote"/> is greater than
-		/// <paramref name="secondMusicNote"/>. false indicates that
-		/// <paramref name="firstMusicNote"/> is less than or equal to
-		/// <paramref name="secondMusicNote"/>.
+        /// is greater than <paramref name="secondMusicNote"/>. true indicates
+        /// that <paramref name="firstMusicNote"/> is greater than
+        /// <paramref name="secondMusicNote"/>. false indicates that
+        /// <paramref name="firstMusicNote"/> is less than or equal to
+        /// <paramref name="secondMusicNote"/>.
         /// </returns>
         public static bool operator > (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -406,12 +406,12 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// A boolean that indicates whether
-		/// <paramref name="firstMusicNote"/> is less than
-		/// <paramref name="secondMusicNote"/>. true indicates that
-		/// <paramref name="firstMusicNote"/> is less than
-		/// <paramref name="secondMusicNote"/>. false indicates that
-		/// <paramref name="firstMusicNote"/> is greater than or equal to
-		/// <paramref name="secondMusicNote"/>.
+        /// <paramref name="firstMusicNote"/> is less than
+        /// <paramref name="secondMusicNote"/>. true indicates that
+        /// <paramref name="firstMusicNote"/> is less than
+        /// <paramref name="secondMusicNote"/>. false indicates that
+        /// <paramref name="firstMusicNote"/> is greater than or equal to
+        /// <paramref name="secondMusicNote"/>.
         /// </returns>
         public static bool operator < (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {

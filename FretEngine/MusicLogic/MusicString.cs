@@ -100,9 +100,9 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="targetMusicString"/> is the
-		/// same as the current instance; otherwise, false. If
-		/// <paramref name="targetMusicString"/> is null, the method returns
-		/// false.
+        /// same as the current instance; otherwise, false. If
+        /// <paramref name="targetMusicString"/> is null, the method returns
+        /// false.
         /// </returns>
         public bool Equals(MusicString targetMusicString)
         {
@@ -137,8 +137,8 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// true if the value of <paramref name="firstMusicString"/> is the
-		/// same as the value of <paramref name="secondMusicString"/>;
-		/// otherwise, false.
+        /// same as the value of <paramref name="secondMusicString"/>;
+        /// otherwise, false.
         /// </returns>
         public static bool operator == (MusicString firstMusicString, MusicString secondMusicString)
         {
@@ -168,7 +168,7 @@ namespace FretEngine.MusicLogic
         /// <returns>
         /// true if the value of <paramref name="firstMusicString"/> is not the
         /// same as the value of <paramref name="secondMusicString"/>;
-		/// otherwise, false.
+        /// otherwise, false.
         /// </returns>
         public static bool operator != (MusicString firstMusicString, MusicString secondMusicString)
         {
@@ -177,9 +177,9 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Compares this instance with a specified <see cref="object"/> and
-		/// indicates whether this instance precedes, follows, or appears in
-		/// the same position in the sort order as the specified
-		/// <see cref="object"/>.
+        /// indicates whether this instance precedes, follows, or appears in
+        /// the same position in the sort order as the specified
+        /// <see cref="object"/>.
         /// </summary>
         /// <param name="obj">
         /// An <see cref="object"/> that evaluates to
@@ -187,13 +187,13 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// An <see cref="int"/> that indicates whether this instance precedes,
-		/// follows, or appears in the same position in the sort order as the
-		/// <paramref name="obj"/> parameter. Less than zero indicates that
-		/// this instance precedes <paramref name="obj"/>. Zero indicates that
-		/// this instance has the same position in the sort order as
-		/// <paramref name="obj"/>. Greater than zero indicates that this
-		/// instance follows <paramref name="obj"/> or that
-		/// <paramref name="obj"/> is null.
+        /// follows, or appears in the same position in the sort order as the
+        /// <paramref name="obj"/> parameter. Less than zero indicates that
+        /// this instance precedes <paramref name="obj"/>. Zero indicates that
+        /// this instance has the same position in the sort order as
+        /// <paramref name="obj"/>. Greater than zero indicates that this
+        /// instance follows <paramref name="obj"/> or that
+        /// <paramref name="obj"/> is null.
         /// </returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="obj"/> is not a <see cref="MusicString"/>.
@@ -219,23 +219,23 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Compares this instance with a specified <see cref="MusicString"/>
-		/// and indicates whether this instance precedes, follows, or appears
-		/// in the same position in the sort order as the specified
-		/// <see cref="MusicString"/>.
+        /// and indicates whether this instance precedes, follows, or appears
+        /// in the same position in the sort order as the specified
+        /// <see cref="MusicString"/>.
         /// </summary>
         /// <param name="targetMusicString">
         /// The <see cref="MusicString"/> to compare, or null.
         /// </param>
         /// <returns>
         /// An <see cref="int"/> that indicates whether this instance precedes,
-		/// follows, or appears in the same position in the sort order as the
-		/// <paramref name="targetMusicString"/> parameter. Less than zero
-		/// indicates that this instance precedes
-		/// <paramref name="targetMusicString"/>. Zero indicates that this
-		/// instance has the same position in the sort order as
-		/// <paramref name="targetMusicString"/>. Greater than zero indicates
-		/// that this instance follows <paramref name="targetMusicString"/> or
-		/// that <paramref name="targetMusicString"/> is null.
+        /// follows, or appears in the same position in the sort order as the
+        /// <paramref name="targetMusicString"/> parameter. Less than zero
+        /// indicates that this instance precedes
+        /// <paramref name="targetMusicString"/>. Zero indicates that this
+        /// instance has the same position in the sort order as
+        /// <paramref name="targetMusicString"/>. Greater than zero indicates
+        /// that this instance follows <paramref name="targetMusicString"/> or
+        /// that <paramref name="targetMusicString"/> is null.
         /// </returns>
         public int CompareTo(MusicString targetMusicString)
         {
@@ -308,11 +308,11 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Sharpens the <see cref="RootNote"/> of this instance by
-		/// <paramref name="incrementQuantity"/> semitones.
+        /// <paramref name="incrementQuantity"/> semitones.
         /// </summary>
         /// <param name="incrementQuantity">
         /// An <see cref="int"/> representing the number of semitones to
-		/// sharpen the <see cref="RootNote"/> of this instance by.
+        /// sharpen the <see cref="RootNote"/> of this instance by.
         /// </param>
         public void Sharpen(int incrementQuantity)
         {
@@ -321,11 +321,11 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Flattens the <see cref="RootNote"/> of this instance by
-		/// <paramref name="decrementQuantity"/> semitones.
+        /// <paramref name="decrementQuantity"/> semitones.
         /// </summary>
         /// <param name="decrementQuantity">
         /// An <see cref="int"/> representing the number of semitones to
-		/// flatten the <see cref="RootNote"/> of this instance by.
+        /// flatten the <see cref="RootNote"/> of this instance by.
         /// </param>
         public void Flatten(int decrementQuantity)
         {
@@ -334,7 +334,7 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Checks whether a given <paramref name="musicStringPosition"/> is
-		/// valid.
+        /// valid.
         /// </summary>
         /// <param name="musicStringPosition">
         /// The music string position to check the validity of.
@@ -355,7 +355,7 @@ namespace FretEngine.MusicLogic
         /// <param name="musicStringPosition">
         /// An <see cref="int"/> representing the position on this
         /// <see cref="MusicString"/> to return the <see cref="MusicNote"/>
-		/// from.
+        /// from.
         /// </param>
         /// <returns>
         /// The <see cref="MusicNote"/> at the given
@@ -363,11 +363,11 @@ namespace FretEngine.MusicLogic
         /// </returns>
         /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
         /// <paramref name="musicStringPosition"/> is not a valid music string
-		/// position.
+        /// position.
         /// </exception>
         /// <remarks>
         /// <paramref name="musicStringPosition"/> refers to an abstract
-		/// position on a string that is based on semitones. As such, a
+        /// position on a string that is based on semitones. As such, a
         /// <paramref name="musicStringPosition"/> of x will return a
         /// <see cref="MusicNote"/> that represents <see cref="RootNote"/>
         /// sharpened by x semitones.
@@ -387,9 +387,9 @@ namespace FretEngine.MusicLogic
 
         /// <summary>
         /// Returns an <see cref="IEnumerable{MusicNote}"/> of the
-		/// <see cref="MusicNote"/> values between
-		/// <paramref name="startPosition"/> and <paramref name="endPosition"/>
-		/// (inclusive) on this <see cref="MusicString"/>.
+        /// <see cref="MusicNote"/> values between
+        /// <paramref name="startPosition"/> and <paramref name="endPosition"/>
+        /// (inclusive) on this <see cref="MusicString"/>.
         /// </summary>
         /// <param name="startPosition">
         /// The position of the first <see cref="MusicNote"/> to return.
@@ -399,21 +399,21 @@ namespace FretEngine.MusicLogic
         /// </param>
         /// <returns>
         /// An <see cref="IEnumerable{MusicNote}"/> of the
-		/// <see cref="MusicNote"/> values between
-		/// <paramref name="startPosition"/> and <paramref name="endPosition"/>
-		/// (inclusive) on this <see cref="MusicString"/>.
+        /// <see cref="MusicNote"/> values between
+        /// <paramref name="startPosition"/> and <paramref name="endPosition"/>
+        /// (inclusive) on this <see cref="MusicString"/>.
         /// </returns>
         /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
         /// <paramref name="startPosition"/> is not a valid music string
-		/// position.
+        /// position.
         /// </exception>
         /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
         /// <paramref name="endPosition"/> is not a valid music string
-		/// position.
+        /// position.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// <paramref name="startPosition"/> is greater than
-		/// <paramref name="endPosition"/>.
+        /// <paramref name="endPosition"/>.
         /// </exception>
         public IEnumerable<MusicNote> GetMusicNotes(int startPosition, int endPosition)
         {
@@ -444,8 +444,8 @@ namespace FretEngine.MusicLogic
         /// <summary>
         /// Returns an <see cref="IEnumerable{MusicNote}"/> of the
         /// <see cref="MusicNote"/> values between the root position and
-		/// <paramref name="endPosition"/> (inclusive) on this
-		/// <see cref="MusicString"/>.
+        /// <paramref name="endPosition"/> (inclusive) on this
+        /// <see cref="MusicString"/>.
         /// </summary>
         /// <param name="endPosition">
         /// The position of the last <see cref="MusicNote"/> to return.
@@ -453,8 +453,8 @@ namespace FretEngine.MusicLogic
         /// <returns>
         /// An <see cref="IEnumerable{MusicNote}"/> of the
         /// <see cref="MusicNote"/> values between the root position and
-		/// <paramref name="endPosition"/> (inclusive) on this
-		/// <see cref="MusicString"/>.
+        /// <paramref name="endPosition"/> (inclusive) on this
+        /// <see cref="MusicString"/>.
         /// </returns>
         /// <exception cref="MusicStringExceptions.InvalidMusicStringPositionException">
         /// <paramref name="endPosition"/> is not a valid music string

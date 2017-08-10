@@ -13,14 +13,14 @@ namespace FretEngine.Common.Exceptions
     {
         /// <summary>
         /// The exception that is thrown when an invalid music string position
-		/// is used.
+        /// is used.
         /// </summary>
         public class InvalidMusicStringPositionException : Exception
         {
             /// <summary>
             /// Initializes a new instance of the
-			/// MusicStringExceptions.InvalidMusicStringPositionException
-			/// class.
+            /// MusicStringExceptions.InvalidMusicStringPositionException
+            /// class.
             /// </summary>
             public InvalidMusicStringPositionException()
             {
@@ -28,7 +28,7 @@ namespace FretEngine.Common.Exceptions
 
             /// <summary>
             /// Initializes a new instance of the
-			/// MusicStringExceptions.InvalidMusicStringPositionException
+            /// MusicStringExceptions.InvalidMusicStringPositionException
             /// class with a specified error message.
             /// </summary>
             /// <param name="message">
@@ -49,7 +49,7 @@ namespace FretEngine.Common.Exceptions
             /// </param>
             /// <param name="inner">
             /// The exception that is the cause of the current exception, or a
-			/// null reference if no inner exception is specified.
+            /// null reference if no inner exception is specified.
             /// </param>
             public InvalidMusicStringPositionException(string message, Exception inner) : base(message, inner)
             {
@@ -64,8 +64,8 @@ namespace FretEngine.Common.Exceptions
         {
             /// <summary>
             /// Initializes a new instance of the
-			/// MusicStringExceptions.MusicStringHasNoSuchMusicNoteException
-			/// class.
+            /// MusicStringExceptions.MusicStringHasNoSuchMusicNoteException
+            /// class.
             /// </summary>
             public MusicStringHasNoSuchMusicNoteException()
             {
@@ -73,7 +73,7 @@ namespace FretEngine.Common.Exceptions
 
             /// <summary>
             /// Initializes a new instance of the
-			/// MusicStringExceptions.MusicStringHasNoSuchMusicNoteException
+            /// MusicStringExceptions.MusicStringHasNoSuchMusicNoteException
             /// class with a specified error message.
             /// </summary>
             /// <param name="message">
@@ -94,7 +94,7 @@ namespace FretEngine.Common.Exceptions
             /// </param>
             /// <param name="inner">
             /// The exception that is the cause of the current exception, or a
-			/// null reference if no inner exception is specified.
+            /// null reference if no inner exception is specified.
             /// </param>
             public MusicStringHasNoSuchMusicNoteException(string message, Exception inner) : base(message, inner)
             {
