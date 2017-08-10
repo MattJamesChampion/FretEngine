@@ -319,6 +319,43 @@ namespace FretEngine.MusicLogic
         }
 
         /// <summary>
+        /// Compares this instance with a specified <see cref="MusicNote"/> and
+        /// indicates whether this instance precedes, follows, or appears in
+        /// the same position in the sort order as the specified
+        /// <see cref="MusicNote"/>. The value of
+        /// <paramref name="compareOctave"/> will control whether or not the
+        /// <see cref="Octave"/> will factor into the comparison.
+        /// <param name="targetMusicNote">
+        /// The <see cref="MusicNote"/> to compare, or null.
+        /// </param>
+        /// <param name="compareOctave">
+        /// A <see cref="bool"/> representing whether or not the
+        /// <see cref="Octave"/> will factor into the comparison.
+        /// </param>
+        /// <returns>
+        /// An <see cref="int"/> that indicates whether this instance precedes,
+        /// follows, or appears in the same position in the sort order as the
+        /// <paramref name="targetMusicNote"/> parameter. Less than zero
+        /// indicates that this instance precedes
+        /// <paramref name="targetMusicNote"/>. Zero indicates that this
+        /// instance has the same position in the sort order as
+        /// <paramref name="targetMusicNote"/>. Greater than zero indicates
+        /// that this instance follows <paramref name="targetMusicNote"/> or
+        /// that <paramref name="targetMusicNote"/> is null.
+        /// </returns>
+        public int CompareTo(MusicNote targetMusicNote, bool compareOctave=true)
+        {
+            if (compareOctave)
+            {
+                return CompareTo(targetMusicNote);
+            }
+            else
+            {
+                return Value.CompareTo(targetMusicNote.Value);
+            }
+        }
+
+        /// <summary>
         /// Compares two instances of <see cref="MusicNote"/> and indicates
 		/// whether <paramref name="firstMusicNote"/> is greater than
 		/// <paramref name="secondMusicNote"/>.
