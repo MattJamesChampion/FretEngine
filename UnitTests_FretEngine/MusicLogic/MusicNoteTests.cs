@@ -28,11 +28,11 @@ namespace UnitTests_FretEngine.MusicLogic
         }
 
         [TestCase(AbstractMusicNote.CSharpDFlat)]
-	    [TestCase(AbstractMusicNote.DSharpEFlat)]
-	    [TestCase(AbstractMusicNote.ESharpFNatural)]
-	    [TestCase(AbstractMusicNote.GNatural)]
-	    [TestCase(AbstractMusicNote.ANatural)]
-	    [TestCase(AbstractMusicNote.BNaturalCFlat)]
+        [TestCase(AbstractMusicNote.DSharpEFlat)]
+        [TestCase(AbstractMusicNote.ESharpFNatural)]
+        [TestCase(AbstractMusicNote.GNatural)]
+        [TestCase(AbstractMusicNote.ANatural)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat)]
         public void MusicNote_WhenConstructingWithValidAbstractMusicNoteAndNoOctave_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote)
         {
             Assert.DoesNotThrow(() => {
