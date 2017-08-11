@@ -480,7 +480,7 @@ namespace FretEngine.MusicLogic
         {
             if (RootNote.HasOctave() && targetMusicNote.HasOctave())
             {
-                if ((targetMusicNote > RootNote) || (targetMusicNote == RootNote))
+                if (targetMusicNote.CompareTo(RootNote) >= 0)
                 {
                     return true;
                 }
