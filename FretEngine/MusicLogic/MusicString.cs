@@ -307,6 +307,66 @@ namespace FretEngine.MusicLogic
         }
 
         /// <summary>
+        /// Compares two instances of <see cref="MusicString"/> and indicates
+        /// whether <paramref name="firstMusicString"/> is greater than or
+        /// equal to <paramref name="secondMusicString"/>.
+        /// </summary>
+        /// <param name="firstMusicString">
+        /// The first <see cref="MusicString"/> to compare, or null.
+        /// </param>
+        /// <param name="secondMusicString">
+        /// The second <see cref="MusicString"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// A boolean that indicates whether
+        /// <paramref name="firstMusicString"/> is greater than or equal to
+        /// <paramref name="secondMusicString"/>. true indicates that
+        /// <paramref name="firstMusicString"/> is greater than or equal to
+        /// <paramref name="secondMusicString"/>. false indicates that
+        /// <paramref name="firstMusicString"/> is less than
+        /// <paramref name="secondMusicString"/>.
+        /// </returns>
+        public static bool operator >= (MusicString firstMusicString, MusicString secondMusicString)
+        {
+            if ((firstMusicString == null) || (secondMusicString == null))
+            {
+                return false;
+            }
+
+            return ((firstMusicString > secondMusicString) || (firstMusicString == secondMusicString));
+        }
+
+        /// <summary>
+        /// Compares two instances of <see cref="MusicString"/> and indicates
+        /// whether <paramref name="firstMusicString"/> is less than or equal
+        /// to <paramref name="secondMusicString"/>.
+        /// </summary>
+        /// <param name="firstMusicString">
+        /// The first <see cref="MusicString"/> to compare, or null.
+        /// </param>
+        /// <param name="secondMusicString">
+        /// The second <see cref="MusicString"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// A boolean that indicates whether
+        /// <paramref name="firstMusicString"/> is less than or equal to
+        /// <paramref name="secondMusicString"/>. true indicates that
+        /// <paramref name="firstMusicString"/> is less than or equal to
+        /// <paramref name="secondMusicString"/>. false indicates that
+        /// <paramref name="firstMusicString"/> is greater than
+        /// <paramref name="secondMusicString"/>.
+        /// </returns>
+        public static bool operator <= (MusicString firstMusicString, MusicString secondMusicString)
+        {
+            if ((firstMusicString == null) || (secondMusicString == null))
+            {
+                return false;
+            }
+
+            return ((firstMusicString < secondMusicString) || (firstMusicString == secondMusicString));
+        }
+
+        /// <summary>
         /// Sharpens the <see cref="RootNote"/> of this instance by
         /// <paramref name="incrementQuantity"/> semitones.
         /// </summary>
