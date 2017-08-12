@@ -434,6 +434,66 @@ namespace FretEngine.MusicLogic
         }
 
         /// <summary>
+        /// Compares two instances of <see cref="MusicNote"/> and indicates
+        /// whether <paramref name="firstMusicNote"/> is greater than or equal
+        /// to <paramref name="secondMusicNote"/>.
+        /// </summary>
+        /// <param name="firstMusicNote">
+        /// The first <see cref="MusicNote"/> to compare, or null.
+        /// </param>
+        /// <param name="secondMusicNote">
+        /// The second <see cref="MusicNote"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// A boolean that indicates whether
+        /// <paramref name="firstMusicNote"/> is greater than or equal to
+        /// <paramref name="secondMusicNote"/>. true indicates that
+        /// <paramref name="firstMusicNote"/> is greater than or equal to
+        /// <paramref name="secondMusicNote"/>. false indicates that
+        /// <paramref name="firstMusicNote"/> is less than
+        /// <paramref name="secondMusicNote"/>.
+        /// </returns>
+        public static bool operator >= (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            if ((firstMusicNote == null) || (secondMusicNote == null))
+            {
+                return false;
+            }
+
+            return ((firstMusicNote > secondMusicNote) || (firstMusicNote == secondMusicNote));
+        }
+
+        /// <summary>
+        /// Compares two instances of <see cref="MusicNote"/> and indicates
+        /// whether <paramref name="firstMusicNote"/> is less than or equal to
+        /// <paramref name="secondMusicNote"/>.
+        /// </summary>
+        /// <param name="firstMusicNote">
+        /// The first <see cref="MusicNote"/> to compare, or null.
+        /// </param>
+        /// <param name="secondMusicNote">
+        /// The second <see cref="MusicNote"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// A boolean that indicates whether
+        /// <paramref name="firstMusicNote"/> is less than or equal to
+        /// <paramref name="secondMusicNote"/>. true indicates that
+        /// <paramref name="firstMusicNote"/> is less than or equal to
+        /// <paramref name="secondMusicNote"/>. false indicates that
+        /// <paramref name="firstMusicNote"/> is greater than
+        /// <paramref name="secondMusicNote"/>.
+        /// </returns>
+        public static bool operator <= (MusicNote firstMusicNote, MusicNote secondMusicNote)
+        {
+            if ((firstMusicNote == null) || (secondMusicNote == null))
+            {
+                return false;
+            }
+
+            return ((firstMusicNote < secondMusicNote) || (firstMusicNote == secondMusicNote));
+        }
+
+        /// <summary>
         /// Returns a new sharpened instance of the current
         /// <see cref="MusicNote"/>.
         /// </summary>
