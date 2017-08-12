@@ -264,7 +264,8 @@ namespace FretEngine.MusicLogic
         /// that <paramref name="firstMusicString"/> is greater than
         /// <paramref name="secondMusicString"/>. false indicates that
         /// <paramref name="firstMusicString"/> is less than or equal to
-        /// <paramref name="secondMusicString"/>.
+        /// <paramref name="secondMusicString"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator > (MusicString firstMusicString, MusicString secondMusicString)
         {
@@ -294,7 +295,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicString"/> is less than
         /// <paramref name="secondMusicString"/>. false indicates that
         /// <paramref name="firstMusicString"/> is greater than or equal to
-        /// <paramref name="secondMusicString"/>.
+        /// <paramref name="secondMusicString"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator < (MusicString firstMusicString, MusicString secondMusicString)
         {
@@ -324,7 +326,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicString"/> is greater than or equal to
         /// <paramref name="secondMusicString"/>. false indicates that
         /// <paramref name="firstMusicString"/> is less than
-        /// <paramref name="secondMusicString"/>.
+        /// <paramref name="secondMusicString"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator >= (MusicString firstMusicString, MusicString secondMusicString)
         {
@@ -354,7 +357,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicString"/> is less than or equal to
         /// <paramref name="secondMusicString"/>. false indicates that
         /// <paramref name="firstMusicString"/> is greater than
-        /// <paramref name="secondMusicString"/>.
+        /// <paramref name="secondMusicString"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator <= (MusicString firstMusicString, MusicString secondMusicString)
         {
