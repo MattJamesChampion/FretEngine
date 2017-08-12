@@ -325,6 +325,7 @@ namespace FretEngine.MusicLogic
         /// <see cref="MusicNote"/>. The value of
         /// <paramref name="compareOctave"/> will control whether or not the
         /// <see cref="Octave"/> will factor into the comparison.
+        /// </summary>
         /// <param name="targetMusicNote">
         /// The <see cref="MusicNote"/> to compare, or null.
         /// </param>
