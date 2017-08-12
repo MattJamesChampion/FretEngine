@@ -373,7 +373,8 @@ namespace FretEngine.MusicLogic
         /// that <paramref name="firstMusicNote"/> is greater than
         /// <paramref name="secondMusicNote"/>. false indicates that
         /// <paramref name="firstMusicNote"/> is less than or equal to
-        /// <paramref name="secondMusicNote"/>.
+        /// <paramref name="secondMusicNote"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator > (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -412,7 +413,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicNote"/> is less than
         /// <paramref name="secondMusicNote"/>. false indicates that
         /// <paramref name="firstMusicNote"/> is greater than or equal to
-        /// <paramref name="secondMusicNote"/>.
+        /// <paramref name="secondMusicNote"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator < (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -451,7 +453,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicNote"/> is greater than or equal to
         /// <paramref name="secondMusicNote"/>. false indicates that
         /// <paramref name="firstMusicNote"/> is less than
-        /// <paramref name="secondMusicNote"/>.
+        /// <paramref name="secondMusicNote"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator >= (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
@@ -481,7 +484,8 @@ namespace FretEngine.MusicLogic
         /// <paramref name="firstMusicNote"/> is less than or equal to
         /// <paramref name="secondMusicNote"/>. false indicates that
         /// <paramref name="firstMusicNote"/> is greater than
-        /// <paramref name="secondMusicNote"/>.
+        /// <paramref name="secondMusicNote"/>, or that at least one parameter
+        /// is null.
         /// </returns>
         public static bool operator <= (MusicNote firstMusicNote, MusicNote secondMusicNote)
         {
