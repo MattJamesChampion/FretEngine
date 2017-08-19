@@ -151,17 +151,20 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.AreEqual(testLastPosition, testMusicString.LastPosition);
         }
 
-        [TestCase(AbstractMusicNote.DNatural, 4)]
-        [TestCase(AbstractMusicNote.GNatural, 1)]
-        [TestCase(AbstractMusicNote.FSharpGFlat, 20)]
-        [TestCase(AbstractMusicNote.BSharpCNatural, -7)]
-        [TestCase(AbstractMusicNote.ANatural, 0)]
-        [TestCase(AbstractMusicNote.ESharpFNatural, -0)]
-        [TestCase(AbstractMusicNote.CSharpDFlat, null)]
-        public void ToString_WhenCalledOnAValidMusicString_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int? testOctave)
+        [TestCase(AbstractMusicNote.DNatural, 4, 30)]
+        [TestCase(AbstractMusicNote.GNatural, 1, 6)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 20, 4)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, -7, 0)]
+        [TestCase(AbstractMusicNote.ANatural, 0, 100)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -0, 80)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, null, 17)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, -18, null)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, null, null)]
+        public void ToString_WhenCalledOnAValidMusicString_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var testMusicString = new MusicString(testMusicNote);
+
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
 
             Assert.DoesNotThrow(() =>
             {

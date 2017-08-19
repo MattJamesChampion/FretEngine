@@ -85,7 +85,7 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override string ToString()
         {
-            return string.Format("MusicString with root note: {0}", RootNote);
+            return string.Format("MusicString (RootNote: {0}, LastPosition: {1})", RootNote, LastPosition);
         }
 
         /// <summary>
