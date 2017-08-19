@@ -154,7 +154,7 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override int GetHashCode()
         {
-            return RootNote.GetHashCode();
+            return new { RootNote, LastPosition }.GetHashCode();
         }
 
         /// <summary>

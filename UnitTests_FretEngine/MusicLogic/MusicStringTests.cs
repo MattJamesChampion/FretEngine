@@ -285,38 +285,38 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.IsFalse(firstMusicString.Equals((object)secondMusicString));
         }
 
-        [TestCase(AbstractMusicNote.GNatural, 2)]
-        [TestCase(AbstractMusicNote.ENaturalFFlat, 7)]
-        [TestCase(AbstractMusicNote.ASharpBFlat, 0)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, -9)]
-        [TestCase(AbstractMusicNote.BNaturalCFlat, 14)]
-        [TestCase(AbstractMusicNote.DSharpEFlat, null)]
-        public void GetHashCode_WhenGeneratedForEqualMusicStrings_ShouldBeEqual(AbstractMusicNote testAbstractMusicNote, int? testOctave)
+        [TestCase(AbstractMusicNote.GNatural, 2, 0)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 7, 38)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 0, 151)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, -9, 17)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 14, 98)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, null, 10)]
+        public void GetHashCode_WhenGeneratedForEqualMusicStrings_ShouldBeEqual(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
         {
             var firstMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var firstMusicString = new MusicString(firstMusicNote);
+            var firstMusicString = new MusicString(firstMusicNote, testLastPosition);
 
             var secondMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var secondMusicString = new MusicString(secondMusicNote);
+            var secondMusicString = new MusicString(secondMusicNote, testLastPosition);
 
             Assert.AreEqual(firstMusicString.GetHashCode(), secondMusicString.GetHashCode());
         }
 
-        [TestCase(AbstractMusicNote.BNaturalCFlat, 3, AbstractMusicNote.BNaturalCFlat, 4)]
-        [TestCase(AbstractMusicNote.ENaturalFFlat, 0, AbstractMusicNote.ENaturalFFlat, 1)]
-        [TestCase(AbstractMusicNote.GNatural, 2, AbstractMusicNote.BNaturalCFlat, 9)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, 7, AbstractMusicNote.GSharpAFlat, 8)]
-        [TestCase(AbstractMusicNote.ANatural, -4, AbstractMusicNote.ANatural, 4)]
-        [TestCase(AbstractMusicNote.DNatural, -17, AbstractMusicNote.DSharpEFlat, null)]
-        [TestCase(AbstractMusicNote.BSharpCNatural, null, AbstractMusicNote.ASharpBFlat, 18)]
-        [TestCase(AbstractMusicNote.FSharpGFlat, null, AbstractMusicNote.GNatural, null)]
-        public void GetHashCode_WhenGeneratedForUnequalMusicStrings_ShouldNotBeEqual(AbstractMusicNote firstAbstractMusicNote, int? firstOctave, AbstractMusicNote secondAbstractMusicNote, int? secondOctave)
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 3, 10, AbstractMusicNote.BNaturalCFlat, 4, 10)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 0, 4, AbstractMusicNote.ENaturalFFlat, 0, 14)]
+        [TestCase(AbstractMusicNote.GNatural, 2, 7, AbstractMusicNote.BNaturalCFlat, 9, 51)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 8, 13, AbstractMusicNote.GNatural, 8, 13)]
+        [TestCase(AbstractMusicNote.ANatural, 4, 51, AbstractMusicNote.ANatural, 4, null)]
+        [TestCase(AbstractMusicNote.DNatural, -17, 30, AbstractMusicNote.DSharpEFlat, null, 17)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, null, 5, AbstractMusicNote.ASharpBFlat, 18, 0)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, null, 38, AbstractMusicNote.GNatural, null, 38)]
+        public void GetHashCode_WhenGeneratedForUnequalMusicStrings_ShouldNotBeEqual(AbstractMusicNote firstAbstractMusicNote, int? firstOctave, int? firstLastPosition, AbstractMusicNote secondAbstractMusicNote, int? secondOctave, int? secondLastPosition)
         {
             var firstMusicNote = new MusicNote(firstAbstractMusicNote, firstOctave);
-            var firstMusicString = new MusicString(firstMusicNote);
+            var firstMusicString = new MusicString(firstMusicNote, firstLastPosition);
 
             var secondMusicNote = new MusicNote(secondAbstractMusicNote, secondOctave);
-            var secondMusicString = new MusicString(secondMusicNote);
+            var secondMusicString = new MusicString(secondMusicNote, secondLastPosition);
 
             Assert.AreNotEqual(firstMusicString.GetHashCode(), secondMusicString.GetHashCode());
         }
