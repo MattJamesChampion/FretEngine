@@ -276,7 +276,61 @@ namespace FretEngine.MusicLogic
                 return 1;
             }
 
-            return RootNote.CompareTo(targetMusicString.RootNote);
+            if (RootNote == targetMusicString.RootNote)
+            {
+                return CompareLastPositions(LastPosition, targetMusicString.LastPosition);
+            }
+            else
+            {
+                return RootNote.CompareTo(targetMusicString.RootNote);
+            }
+        }
+
+        /// <summary>
+        /// Compares a <see cref="LastPosition"/> with another
+        /// <see cref="LastPosition"/> and indicates whether the first instance
+        /// precedes, follows, or appears in the same position in the sort
+        /// order as the second instance.
+        /// </summary>
+        /// <param name="firstLastPosition">
+        /// The first <see cref="LastPosition"/> to compare, or null.
+        /// </param>
+        /// <param name="secondLastPosition">
+        /// The second <see cref="LastPosition"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// An <see cref="int"/> that indicates whether
+        /// <paramref name="firstLastPosition"/> precedes, follows, or appears
+        /// in the same position in the sort order as
+        /// <paramref name="secondLastPosition"/>. Less than zero indicates
+        /// that <paramref name="firstLastPosition"/> precedes
+        /// <paramref name="secondLastPosition"/>. Zero indicates that
+        /// <paramref name="firstLastPosition"/> has the same position in the
+        /// sort order as <paramref name="secondLastPosition"/>. Greater than
+        /// zero indicates that <paramref name="firstLastPosition"/> follows
+        /// <paramref name="secondLastPosition"/>.
+        /// </returns>
+        private static int CompareLastPositions(int? firstLastPosition, int? secondLastPosition)
+        {
+            if (firstLastPosition.HasValue && secondLastPosition.HasValue)
+            {
+                return ((int)firstLastPosition).CompareTo((int)secondLastPosition);
+            }
+            else if (!firstLastPosition.HasValue && secondLastPosition.HasValue)
+            {
+                //MusicStrings without LastPositions precede MusicStrings with LastPositions.
+                return -1;
+            }
+            else if (firstLastPosition.HasValue && !secondLastPosition.HasValue)
+            {
+                //MusicStrings with LastPositions follow MusicStrings without LastPositions.
+                return 1;
+            }
+            else
+            {
+                //Both LastPositions are null and are therefore equal.
+                return 0;
+            }
         }
 
         /// <summary>
