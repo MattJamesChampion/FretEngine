@@ -29,6 +29,23 @@ namespace UnitTests_FretEngine.MusicLogic
             });
         }
 
+        [TestCase(AbstractMusicNote.GNatural, 0, 0)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 11, 4)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 8, 71)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, -12, 13)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, null, 28)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -3, null)]
+        [TestCase(AbstractMusicNote.DNatural, null, null)]
+        public void MusicString_WhenConstructingWithValidMusicNoteAndLastPosition_ShouldNotThrowException(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            Assert.DoesNotThrow(() =>
+            {
+                new MusicString(testMusicNote, testLastPosition);
+            });
+        }
+
         [Test]
         public void MusicString_WhenConstructingWithNullMusicNote_ShouldThrowArgumentException()
         {
@@ -37,6 +54,51 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.Throws<ArgumentException>(() =>
             {
                 new MusicString(testMusicNote);
+            });
+        }
+
+        [TestCase(0)]
+        [TestCase(4)]
+        [TestCase(37)]
+        [TestCase(76)]
+        [TestCase(123)]
+        [TestCase(null)]
+        public void MusicString_WhenConstructingWithNullMusicNoteAndValidLastPosition_ShouldThrowArgumentException(int? testLastPosition)
+        {
+            MusicNote testMusicNote = null;
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                new MusicString(testMusicNote, testLastPosition);
+            });
+        }
+
+        [TestCase(AbstractMusicNote.DSharpEFlat, 0, -7)]
+        [TestCase(AbstractMusicNote.GNatural, -4, -12)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, 17, -1)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, null, -3)]
+        public void MusicString_WhenConstructingWithValidMusicNoteAndInvalidLastPosition_ShouldThrowArgumentException(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                new MusicString(testMusicNote, testLastPosition);
+            });
+        }
+
+        [TestCase(-1)]
+        [TestCase(-12)]
+        [TestCase(-30)]
+        [TestCase(-47)]
+        [TestCase(-100)]
+        public void MusicString_WhenConstructingWithNullMusicNoteAndInvalidLastPosition_ShouldThrowArgumentException(int? testLastPosition)
+        {
+            MusicNote testMusicNote = null;
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                new MusicString(testMusicNote, testLastPosition);
             });
         }
 
@@ -53,6 +115,40 @@ namespace UnitTests_FretEngine.MusicLogic
             var testMusicString = new MusicString(testMusicNote);
 
             Assert.AreEqual(testMusicNote, testMusicString.RootNote);
+        }
+
+        [TestCase(AbstractMusicNote.ANatural, 14, 0)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 0, 16)]
+        [TestCase(AbstractMusicNote.DNatural, -8, 4)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, 3, 51)]
+        [TestCase(AbstractMusicNote.GNatural, -20, 40)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, null, 5)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 9, null)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, null, null)]
+        public void MusicString_WhenConstructingWithValidMusicNoteAndLastPosition_ShouldContainCorrectMusicNote(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
+
+            Assert.AreEqual(testMusicNote, testMusicString.RootNote);
+        }
+
+        [TestCase(AbstractMusicNote.FSharpGFlat, 16, 40)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 4, 0)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 0, 6)]
+        [TestCase(AbstractMusicNote.ANatural, -12, 28)]
+        [TestCase(AbstractMusicNote.GNatural, -2, 11)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, null, 37)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 11, null)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, null, null)]
+        public void MusicString_WhenConstructingWithValidMusicNoteAndLastPosition_ShouldContainCorrectLastPosition(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition)
+        {
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
+
+            Assert.AreEqual(testLastPosition, testMusicString.LastPosition);
         }
 
         [TestCase(AbstractMusicNote.DNatural, 4)]

@@ -28,15 +28,35 @@ namespace FretEngine.MusicLogic
         public MusicNote RootNote;
 
         /// <summary>
+        /// An <see cref="int"/> representing the first position on this
+        /// <see cref="MusicString"/>.
+        /// </summary>
+        public const int FirstPosition = 0;
+
+        /// <summary>
+        /// A nullable <see cref="int"/> representing the last position on this
+        /// <see cref="MusicString"/>.
+        /// </summary>
+        public int? LastPosition = null;
+
+        /// <summary>
         /// Instantiates a new instance of the <see cref="MusicString"/> class.
         /// </summary>
         /// <param name="rootNote">
         /// The <see cref="MusicNote"/> to be assigned to the new instance.
         /// </param>
+        /// <param name="lastPosition">
+        /// An <see cref="int"/> representing the last position on this
+        /// <see cref="MusicString"/>, or null.
+        /// </param>
         /// <exception cref="ArgumentException">
         /// <paramref name="rootNote"/> is null.
         /// </exception>
-        public MusicString(MusicNote rootNote)
+        /// <exception cref="ArgumentException">
+        /// <paramref name="lastPosition"/> is less than
+        /// <see cref="FirstPosition"/>.
+        /// </exception>
+        public MusicString(MusicNote rootNote, int? lastPosition=null)
         {
             if (rootNote != null)
             {
@@ -45,6 +65,15 @@ namespace FretEngine.MusicLogic
             else
             {
                 throw new ArgumentException("Root note must not be null.");
+            }
+
+            if ((lastPosition == null) || (lastPosition >= FirstPosition))
+            {
+                LastPosition = lastPosition;
+            }
+            else
+            {
+                throw new ArgumentException("lastPosition must be greater than or equal to FirstPosition, or null.");
             }
         }
 
