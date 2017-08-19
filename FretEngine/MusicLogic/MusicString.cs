@@ -360,7 +360,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return firstMusicString.RootNote > secondMusicString.RootNote;
+            return firstMusicString.CompareTo(secondMusicString) > 0;
         }
 
         /// <summary>
