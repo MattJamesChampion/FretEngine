@@ -140,7 +140,10 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return (RootNote.Equals(targetMusicString.RootNote));
+            var rootNotesAreEqual = RootNote.Equals(targetMusicString.RootNote);
+            var lastPositionsAreEqual = LastPosition.Equals(targetMusicString.LastPosition);
+
+            return (rootNotesAreEqual && lastPositionsAreEqual);
         }
 
         /// <summary>
