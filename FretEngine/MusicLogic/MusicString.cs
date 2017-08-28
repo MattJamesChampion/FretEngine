@@ -493,9 +493,16 @@ namespace FretEngine.MusicLogic
         /// A <see cref="bool"/> representing whether the given
         /// <paramref name="musicStringPosition"/> is valid.
         /// </returns>
-        public static bool IsValidMusicStringPosition(int musicStringPosition)
+        public bool IsValidMusicStringPosition(int musicStringPosition)
         {
-            return (musicStringPosition >= 0);
+            if (LastPosition == null)
+            {
+                return (FirstPosition <= musicStringPosition);
+            }
+            else
+            {
+                return ((FirstPosition <= musicStringPosition) && (musicStringPosition <= LastPosition));
+            }
         }
 
         /// <summary>

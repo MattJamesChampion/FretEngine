@@ -929,24 +929,34 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.AreEqual(expectedMusicString, actualMusicString);
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(7)]
-        [TestCase(54)]
-        [TestCase(200)]
-        public void IsValidMusicStringPosition_WhenGivenValidMusicStringPosition_ShouldReturnTrue(int musicStringPosition)
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 0, 6, 0)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, -13, 28, 1)]
+        [TestCase(AbstractMusicNote.ANatural, 22, 10, 7)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, 6, 102, 54)]
+        [TestCase(AbstractMusicNote.GNatural, null, 200, 200)]
+        [TestCase(AbstractMusicNote.DNatural, -22, null, 300)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, null, null, 500)]
+        public void IsValidMusicStringPosition_WhenGivenValidMusicStringPosition_ShouldReturnTrue(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition, int musicStringPosition)
         {
-            Assert.IsTrue(MusicString.IsValidMusicStringPosition(musicStringPosition));
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
+
+            Assert.IsTrue(testMusicString.IsValidMusicStringPosition(musicStringPosition));
         }
 
-        [TestCase(-1)]
-        [TestCase(-3)]
-        [TestCase(-8)]
-        [TestCase(-50)]
-        [TestCase(-132)]
-        public void IsValidMusicStringPosition_WhenGivenInvalidMusicStringPosition_ShouldReturnFalse(int musicStringPosition)
+        [TestCase(AbstractMusicNote.ESharpFNatural, -8, 50, -1)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, 16, 0, 3)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 35, 5, 8)]
+        [TestCase(AbstractMusicNote.ANatural, 0, 25, 50)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, null, 100, 132)]
+        [TestCase(AbstractMusicNote.GNatural, 5, null, -22)]
+        [TestCase(AbstractMusicNote.DNatural, null, null, -78)]
+        public void IsValidMusicStringPosition_WhenGivenInvalidMusicStringPosition_ShouldReturnFalse(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition, int musicStringPosition)
         {
-            Assert.IsFalse(MusicString.IsValidMusicStringPosition(musicStringPosition));
+            var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
+
+            Assert.IsFalse(testMusicString.IsValidMusicStringPosition(musicStringPosition));
         }
 
         [TestCase(AbstractMusicNote.ESharpFNatural, 4, 40, AbstractMusicNote.ANatural, 7)]
