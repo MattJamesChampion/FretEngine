@@ -453,7 +453,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return ((firstMusicString < secondMusicString) || (firstMusicString == secondMusicString));
+            return firstMusicString.CompareTo(secondMusicString) <= 0;
         }
 
         /// <summary>
