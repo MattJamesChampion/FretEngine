@@ -908,21 +908,21 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.AreEqual(expectedMusicString, actualMusicString);
         }
 
-        [TestCase(AbstractMusicNote.ENaturalFFlat, 4, 21, AbstractMusicNote.GNatural, 2)]
-        [TestCase(AbstractMusicNote.BNaturalCFlat, 7, 0, AbstractMusicNote.BNaturalCFlat, 7)]
-        [TestCase(AbstractMusicNote.FSharpGFlat, 0, 7, AbstractMusicNote.BNaturalCFlat, -1)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, -12, -20, AbstractMusicNote.ENaturalFFlat, -10)]
-        [TestCase(AbstractMusicNote.DSharpEFlat, 16, 72, AbstractMusicNote.DSharpEFlat, 10)]
-        [TestCase(AbstractMusicNote.ESharpFNatural, null, 29, AbstractMusicNote.BSharpCNatural, null)]
-        [TestCase(AbstractMusicNote.BSharpCNatural, null, 0, AbstractMusicNote.BSharpCNatural, null)]
-        [TestCase(AbstractMusicNote.ANatural, null, -13, AbstractMusicNote.ASharpBFlat, null)]
-        public void Flatten_WhenGivenValidDecrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int? startOctave, int decrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int? expectedOctave)
+        [TestCase(AbstractMusicNote.ENaturalFFlat, 4, null, 21, AbstractMusicNote.GNatural, 2, null)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 7, 18, 0, AbstractMusicNote.BNaturalCFlat, 7, 18)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 0, 66, 7, AbstractMusicNote.BNaturalCFlat, -1, 66)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, -12, 12, -20, AbstractMusicNote.ENaturalFFlat, -10, 12)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, 16, 48, 72, AbstractMusicNote.DSharpEFlat, 10, 48)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, null, 7, 29, AbstractMusicNote.BSharpCNatural, null, 7)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, null, 32, 0, AbstractMusicNote.BSharpCNatural, null, 32)]
+        [TestCase(AbstractMusicNote.ANatural, null, 0, -13, AbstractMusicNote.ASharpBFlat, null, 0)]
+        public void Flatten_WhenGivenValidDecrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int? startOctave, int? startLastPosition, int decrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int? expectedOctave, int? expectedLastPosition)
         {
             var expectedMusicNote = new MusicNote(expectedAbstractMusicNote, expectedOctave);
-            var expectedMusicString = new MusicString(expectedMusicNote);
+            var expectedMusicString = new MusicString(expectedMusicNote, expectedLastPosition);
 
             var actualMusicNote = new MusicNote(startNote, startOctave);
-            var actualMusicString = new MusicString(actualMusicNote);
+            var actualMusicString = new MusicString(actualMusicNote, startLastPosition);
 
             actualMusicString.Flatten(decrementQuantity);
 
