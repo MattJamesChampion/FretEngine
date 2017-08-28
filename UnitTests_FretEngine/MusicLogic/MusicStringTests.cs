@@ -887,21 +887,21 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.IsFalse(testMusicString <= null);
         }
 
-        [TestCase(AbstractMusicNote.GNatural, 4, 17, AbstractMusicNote.BSharpCNatural, 6)]
-        [TestCase(AbstractMusicNote.ASharpBFlat, 0, 3, AbstractMusicNote.CSharpDFlat, 1)]
-        [TestCase(AbstractMusicNote.DNatural, -7, 74, AbstractMusicNote.ENaturalFFlat, -1)]
-        [TestCase(AbstractMusicNote.BNaturalCFlat, 23, -23, AbstractMusicNote.BSharpCNatural, 22)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, 9, 0, AbstractMusicNote.GSharpAFlat, 9)]
-        [TestCase(AbstractMusicNote.ENaturalFFlat, null, 19, AbstractMusicNote.BNaturalCFlat, null)]
-        [TestCase(AbstractMusicNote.CSharpDFlat, null, 2, AbstractMusicNote.DSharpEFlat, null)]
-        [TestCase(AbstractMusicNote.ANatural, null, -8, AbstractMusicNote.CSharpDFlat, null)]
-        public void Sharpen_WhenGivenValidIncrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int? startOctave, int incrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int? expectedOctave)
+        [TestCase(AbstractMusicNote.GNatural, 4, null, 17, AbstractMusicNote.BSharpCNatural, 6, null)]
+        [TestCase(AbstractMusicNote.ASharpBFlat, 0, 14, 3, AbstractMusicNote.CSharpDFlat, 1, 14)]
+        [TestCase(AbstractMusicNote.DNatural, -7, 6, 74, AbstractMusicNote.ENaturalFFlat, -1, 6)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, 23, 111, -23, AbstractMusicNote.BSharpCNatural, 22, 111)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 9, 25, 0, AbstractMusicNote.GSharpAFlat, 9, 25)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, null, 71, 19, AbstractMusicNote.BNaturalCFlat, null, 71)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, null, 28, 2, AbstractMusicNote.DSharpEFlat, null, 28)]
+        [TestCase(AbstractMusicNote.ANatural, null, 0, -8, AbstractMusicNote.CSharpDFlat, null, 0)]
+        public void Sharpen_WhenGivenValidIncrementQuantity_ShouldUpdateCorrectly(AbstractMusicNote startNote, int? startOctave, int? startLastPosition, int incrementQuantity, AbstractMusicNote expectedAbstractMusicNote, int? expectedOctave, int? expectedLastPosition)
         {
             var expectedMusicNote = new MusicNote(expectedAbstractMusicNote, expectedOctave);
-            var expectedMusicString = new MusicString(expectedMusicNote);
+            var expectedMusicString = new MusicString(expectedMusicNote, expectedLastPosition);
 
             var actualMusicNote = new MusicNote(startNote, startOctave);
-            var actualMusicString = new MusicString(actualMusicNote);
+            var actualMusicString = new MusicString(actualMusicNote, startLastPosition);
 
             actualMusicString.Sharpen(incrementQuantity);
 
