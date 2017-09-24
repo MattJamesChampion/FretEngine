@@ -28,15 +28,35 @@ namespace FretEngine.MusicLogic
         public MusicNote RootNote;
 
         /// <summary>
+        /// An <see cref="int"/> representing the first position on this
+        /// <see cref="MusicString"/>.
+        /// </summary>
+        public const int FirstPosition = 0;
+
+        /// <summary>
+        /// A nullable <see cref="int"/> representing the last position on this
+        /// <see cref="MusicString"/>.
+        /// </summary>
+        public int? LastPosition = null;
+
+        /// <summary>
         /// Instantiates a new instance of the <see cref="MusicString"/> class.
         /// </summary>
         /// <param name="rootNote">
         /// The <see cref="MusicNote"/> to be assigned to the new instance.
         /// </param>
+        /// <param name="lastPosition">
+        /// An <see cref="int"/> representing the last position on this
+        /// <see cref="MusicString"/>, or null.
+        /// </param>
         /// <exception cref="ArgumentException">
         /// <paramref name="rootNote"/> is null.
         /// </exception>
-        public MusicString(MusicNote rootNote)
+        /// <exception cref="ArgumentException">
+        /// <paramref name="lastPosition"/> is less than
+        /// <see cref="FirstPosition"/>.
+        /// </exception>
+        public MusicString(MusicNote rootNote, int? lastPosition=null)
         {
             if (rootNote != null)
             {
@@ -45,6 +65,15 @@ namespace FretEngine.MusicLogic
             else
             {
                 throw new ArgumentException("Root note must not be null.");
+            }
+
+            if ((lastPosition == null) || (lastPosition >= FirstPosition))
+            {
+                LastPosition = lastPosition;
+            }
+            else
+            {
+                throw new ArgumentException("lastPosition must be greater than or equal to FirstPosition, or null.");
             }
         }
 
@@ -56,7 +85,7 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override string ToString()
         {
-            return string.Format("MusicString with root note: {0}", RootNote);
+            return string.Format("MusicString (RootNote: {0}, LastPosition: {1})", RootNote, LastPosition);
         }
 
         /// <summary>
@@ -111,7 +140,10 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return (RootNote.Equals(targetMusicString.RootNote));
+            var rootNotesAreEqual = RootNote.Equals(targetMusicString.RootNote);
+            var lastPositionsAreEqual = LastPosition.Equals(targetMusicString.LastPosition);
+
+            return (rootNotesAreEqual && lastPositionsAreEqual);
         }
 
         /// <summary>
@@ -122,7 +154,7 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public override int GetHashCode()
         {
-            return RootNote.GetHashCode();
+            return new { RootNote, LastPosition }.GetHashCode();
         }
 
         /// <summary>
@@ -244,7 +276,61 @@ namespace FretEngine.MusicLogic
                 return 1;
             }
 
-            return RootNote.CompareTo(targetMusicString.RootNote);
+            if (RootNote == targetMusicString.RootNote)
+            {
+                return CompareLastPositions(LastPosition, targetMusicString.LastPosition);
+            }
+            else
+            {
+                return RootNote.CompareTo(targetMusicString.RootNote);
+            }
+        }
+
+        /// <summary>
+        /// Compares a <see cref="LastPosition"/> with another
+        /// <see cref="LastPosition"/> and indicates whether the first instance
+        /// precedes, follows, or appears in the same position in the sort
+        /// order as the second instance.
+        /// </summary>
+        /// <param name="firstLastPosition">
+        /// The first <see cref="LastPosition"/> to compare, or null.
+        /// </param>
+        /// <param name="secondLastPosition">
+        /// The second <see cref="LastPosition"/> to compare, or null.
+        /// </param>
+        /// <returns>
+        /// An <see cref="int"/> that indicates whether
+        /// <paramref name="firstLastPosition"/> precedes, follows, or appears
+        /// in the same position in the sort order as
+        /// <paramref name="secondLastPosition"/>. Less than zero indicates
+        /// that <paramref name="firstLastPosition"/> precedes
+        /// <paramref name="secondLastPosition"/>. Zero indicates that
+        /// <paramref name="firstLastPosition"/> has the same position in the
+        /// sort order as <paramref name="secondLastPosition"/>. Greater than
+        /// zero indicates that <paramref name="firstLastPosition"/> follows
+        /// <paramref name="secondLastPosition"/>.
+        /// </returns>
+        private static int CompareLastPositions(int? firstLastPosition, int? secondLastPosition)
+        {
+            if (firstLastPosition.HasValue && secondLastPosition.HasValue)
+            {
+                return ((int)firstLastPosition).CompareTo((int)secondLastPosition);
+            }
+            else if (!firstLastPosition.HasValue && secondLastPosition.HasValue)
+            {
+                //MusicStrings without LastPositions precede MusicStrings with LastPositions.
+                return -1;
+            }
+            else if (firstLastPosition.HasValue && !secondLastPosition.HasValue)
+            {
+                //MusicStrings with LastPositions follow MusicStrings without LastPositions.
+                return 1;
+            }
+            else
+            {
+                //Both LastPositions are null and are therefore equal.
+                return 0;
+            }
         }
 
         /// <summary>
@@ -274,7 +360,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return firstMusicString.RootNote > secondMusicString.RootNote;
+            return firstMusicString.CompareTo(secondMusicString) > 0;
         }
 
         /// <summary>
@@ -305,7 +391,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return firstMusicString.RootNote < secondMusicString.RootNote;
+            return firstMusicString.CompareTo(secondMusicString) < 0;
         }
 
         /// <summary>
@@ -336,7 +422,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return ((firstMusicString > secondMusicString) || (firstMusicString == secondMusicString));
+            return firstMusicString.CompareTo(secondMusicString) >= 0;
         }
 
         /// <summary>
@@ -367,7 +453,7 @@ namespace FretEngine.MusicLogic
                 return false;
             }
 
-            return ((firstMusicString < secondMusicString) || (firstMusicString == secondMusicString));
+            return firstMusicString.CompareTo(secondMusicString) <= 0;
         }
 
         /// <summary>
@@ -407,9 +493,16 @@ namespace FretEngine.MusicLogic
         /// A <see cref="bool"/> representing whether the given
         /// <paramref name="musicStringPosition"/> is valid.
         /// </returns>
-        public static bool IsValidMusicStringPosition(int musicStringPosition)
+        public bool IsValidMusicStringPosition(int musicStringPosition)
         {
-            return (musicStringPosition >= 0);
+            if (LastPosition == null)
+            {
+                return (FirstPosition <= musicStringPosition);
+            }
+            else
+            {
+                return ((FirstPosition <= musicStringPosition) && (musicStringPosition <= LastPosition));
+            }
         }
 
         /// <summary>
@@ -542,23 +635,56 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public bool HasMusicNote(MusicNote targetMusicNote)
         {
-            if (RootNote.HasOctave() && targetMusicNote.HasOctave())
+            var bothNotesHaveAnOctave = RootNote.HasOctave() && targetMusicNote.HasOctave();
+            var neitherNoteHasAnOctave = !RootNote.HasOctave() && !targetMusicNote.HasOctave();
+
+            if (bothNotesHaveAnOctave)
             {
-                if (targetMusicNote.CompareTo(RootNote) >= 0)
+                if (LastPosition.HasValue)
                 {
-                    return true;
+                    var lastMusicNote = RootNote.Sharpened((int)LastPosition);
+
+                    return (targetMusicNote.CompareTo(RootNote) >= 0) && (targetMusicNote.CompareTo(lastMusicNote) <= 0);
                 }
                 else
                 {
-                    return false;
+                    return targetMusicNote.CompareTo(RootNote) >= 0;
                 }
             }
-            else if (!RootNote.HasOctave() && !targetMusicNote.HasOctave())
+            else if (neitherNoteHasAnOctave)
             {
-                return true;
+                if (LastPosition.HasValue)
+                {
+                    var lastMusicNote = RootNote.Sharpened((int)LastPosition);
+
+                    if (LastPosition < AbstractMusicNoteUtilities.GetNotesPerOctave())
+                    {
+                        for(var position = 0; position <= LastPosition; position++)
+                        {
+                            if (RootNote.Sharpened(position) == targetMusicNote)
+                            {
+                                return true;
+                            }
+                        }
+
+                        //None of the generated notes matched the note
+                        return false;
+                    }
+                    else
+                    {
+                        //There are enough notes on this string that every note is present at least once
+                        return true;
+                    }
+                }
+                else
+                {
+                    //If there is no LastPosition, the MusicString is essentially infinite and will contain every note
+                    return true;
+                }
             }
             else
             {
+                //Notes cannot be compared
                 return false;
             }
         }
