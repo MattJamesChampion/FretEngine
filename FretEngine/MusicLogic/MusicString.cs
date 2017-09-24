@@ -635,23 +635,56 @@ namespace FretEngine.MusicLogic
         /// </returns>
         public bool HasMusicNote(MusicNote targetMusicNote)
         {
-            if (RootNote.HasOctave() && targetMusicNote.HasOctave())
+            var bothNotesHaveAnOctave = RootNote.HasOctave() && targetMusicNote.HasOctave();
+            var neitherNoteHasAnOctave = !RootNote.HasOctave() && !targetMusicNote.HasOctave();
+
+            if (bothNotesHaveAnOctave)
             {
-                if (targetMusicNote.CompareTo(RootNote) >= 0)
+                if (LastPosition.HasValue)
                 {
-                    return true;
+                    var lastMusicNote = RootNote.Sharpened((int)LastPosition);
+
+                    return (targetMusicNote.CompareTo(RootNote) >= 0) && (targetMusicNote.CompareTo(lastMusicNote) <= 0);
                 }
                 else
                 {
-                    return false;
+                    return targetMusicNote.CompareTo(RootNote) >= 0;
                 }
             }
-            else if (!RootNote.HasOctave() && !targetMusicNote.HasOctave())
+            else if (neitherNoteHasAnOctave)
             {
-                return true;
+                if (LastPosition.HasValue)
+                {
+                    var lastMusicNote = RootNote.Sharpened((int)LastPosition);
+
+                    if (LastPosition < AbstractMusicNoteUtilities.GetNotesPerOctave())
+                    {
+                        for(var position = 0; position <= LastPosition; position++)
+                        {
+                            if (RootNote.Sharpened(position) == targetMusicNote)
+                            {
+                                return true;
+                            }
+                        }
+
+                        //None of the generated notes matched the note
+                        return false;
+                    }
+                    else
+                    {
+                        //There are enough notes on this string that every note is present at least once
+                        return true;
+                    }
+                }
+                else
+                {
+                    //If there is no LastPosition, the MusicString is essentially infinite and will contain every note
+                    return true;
+                }
             }
             else
             {
+                //Notes cannot be compared
                 return false;
             }
         }
