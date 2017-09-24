@@ -1189,15 +1189,15 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.IsFalse(testMusicString.HasMusicNote(targetMusicNote));
         }
 
-        [TestCase(AbstractMusicNote.ANatural, 4, AbstractMusicNote.DNatural, 6, 17)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, null, AbstractMusicNote.GNatural, null, 11)]
-        [TestCase(AbstractMusicNote.ENaturalFFlat, -9, AbstractMusicNote.BNaturalCFlat, -9, 7)]
-        [TestCase(AbstractMusicNote.CSharpDFlat, null, AbstractMusicNote.ENaturalFFlat, null, 3)]
-        [TestCase(AbstractMusicNote.DSharpEFlat, 19, AbstractMusicNote.CSharpDFlat, 30, 130)]
-        public void GetMusicStringPositionOfMusicNote_WhenGivenValidMusicNote_ShouldReturnCorrectMusicStringPosition(AbstractMusicNote testAbstractMusicNote, int? testOctave, AbstractMusicNote targetAbstractMusicNote, int? targetOctave, int expectedMusicStringPosition)
+        [TestCase(AbstractMusicNote.ANatural, 4, null, AbstractMusicNote.DNatural, 6, 17)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, null, 30, AbstractMusicNote.GNatural, null, 11)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, -9, null, AbstractMusicNote.BNaturalCFlat, -9, 7)]
+        [TestCase(AbstractMusicNote.CSharpDFlat, null, 3, AbstractMusicNote.ENaturalFFlat, null, 3)]
+        [TestCase(AbstractMusicNote.DSharpEFlat, 19, 130, AbstractMusicNote.CSharpDFlat, 30, 130)]
+        public void GetMusicStringPositionOfMusicNote_WhenGivenValidMusicNote_ShouldReturnCorrectMusicStringPosition(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition, AbstractMusicNote targetAbstractMusicNote, int? targetOctave, int expectedMusicStringPosition)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var testMusicString = new MusicString(testMusicNote);
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
 
             var targetMusicNote = new MusicNote(targetAbstractMusicNote, targetOctave);
 
@@ -1206,15 +1206,15 @@ namespace UnitTests_FretEngine.MusicLogic
             Assert.AreEqual(expectedMusicStringPosition, actualMusicStringPosition);
         }
 
-        [TestCase(AbstractMusicNote.DNatural, 4, AbstractMusicNote.DNatural, null)]
-        [TestCase(AbstractMusicNote.BSharpCNatural, null, AbstractMusicNote.CSharpDFlat, -12)]
-        [TestCase(AbstractMusicNote.ESharpFNatural, 0, AbstractMusicNote.ASharpBFlat, null)]
-        [TestCase(AbstractMusicNote.BNaturalCFlat, null, AbstractMusicNote.BNaturalCFlat, -8)]
-        [TestCase(AbstractMusicNote.GSharpAFlat, 13, AbstractMusicNote.GSharpAFlat, null)]
-        public void GetMusicStringPositionOfMusicNote_WhenGivenIncomparableMusicStringAndMusicNote_ShouldThrowInvalidMusicNoteComparisonException(AbstractMusicNote testAbstractMusicNote, int? testOctave, AbstractMusicNote targetAbstractMusicNote, int? targetOctave)
+        [TestCase(AbstractMusicNote.DNatural, 4, null, AbstractMusicNote.DNatural, null)]
+        [TestCase(AbstractMusicNote.BSharpCNatural, null, 2, AbstractMusicNote.CSharpDFlat, -12)]
+        [TestCase(AbstractMusicNote.ESharpFNatural, 0, 48, AbstractMusicNote.ASharpBFlat, null)]
+        [TestCase(AbstractMusicNote.BNaturalCFlat, null, 71, AbstractMusicNote.BNaturalCFlat, -8)]
+        [TestCase(AbstractMusicNote.GSharpAFlat, 13, null, AbstractMusicNote.GSharpAFlat, null)]
+        public void GetMusicStringPositionOfMusicNote_WhenGivenIncomparableMusicStringAndMusicNote_ShouldThrowInvalidMusicNoteComparisonException(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition, AbstractMusicNote targetAbstractMusicNote, int? targetOctave)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var testMusicString = new MusicString(testMusicNote);
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
 
             var targetMusicNote = new MusicNote(targetAbstractMusicNote, targetOctave);
 
@@ -1224,15 +1224,15 @@ namespace UnitTests_FretEngine.MusicLogic
             });
         }
 
-        [TestCase(AbstractMusicNote.ESharpFNatural, 9, AbstractMusicNote.ESharpFNatural, 8)]
-        [TestCase(AbstractMusicNote.DNatural, 10, AbstractMusicNote.CSharpDFlat, 10)]
-        [TestCase(AbstractMusicNote.FSharpGFlat, 11, AbstractMusicNote.GNatural, 7)]
-        [TestCase(AbstractMusicNote.ENaturalFFlat, -6, AbstractMusicNote.DNatural, -9)]
-        [TestCase(AbstractMusicNote.GNatural, 0, AbstractMusicNote.FSharpGFlat, 0)]
-        public void GetMusicStringPositionOfMusicNote_WhenGivenMusicNoteNotFoundOnThisMusicString_ShouldThrowMusicStringHasNoSuchMusicNoteException(AbstractMusicNote testAbstractMusicNote, int? testOctave, AbstractMusicNote targetAbstractMusicNote, int? targetOctave)
+        [TestCase(AbstractMusicNote.ESharpFNatural, 9, null, AbstractMusicNote.ESharpFNatural, 8)]
+        [TestCase(AbstractMusicNote.DNatural, 10, 0, AbstractMusicNote.DSharpEFlat, 10)]
+        [TestCase(AbstractMusicNote.FSharpGFlat, 11, 300, AbstractMusicNote.GNatural, 7)]
+        [TestCase(AbstractMusicNote.ENaturalFFlat, -9, 33, AbstractMusicNote.DNatural, -6)]
+        [TestCase(AbstractMusicNote.GNatural, 0, null, AbstractMusicNote.FSharpGFlat, 0)]
+        public void GetMusicStringPositionOfMusicNote_WhenGivenMusicNoteNotFoundOnThisMusicString_ShouldThrowMusicStringHasNoSuchMusicNoteException(AbstractMusicNote testAbstractMusicNote, int? testOctave, int? testLastPosition, AbstractMusicNote targetAbstractMusicNote, int? targetOctave)
         {
             var testMusicNote = new MusicNote(testAbstractMusicNote, testOctave);
-            var testMusicString = new MusicString(testMusicNote);
+            var testMusicString = new MusicString(testMusicNote, testLastPosition);
 
             var targetMusicNote = new MusicNote(targetAbstractMusicNote, targetOctave);
 
